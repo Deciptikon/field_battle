@@ -1,5 +1,9 @@
+import { PI, APP_NAME, COLORS } from "./utils/constants.js";
+
 const canvas = document.getElementById("canvas") as HTMLCanvasElement;
 const ctx = canvas.getContext("2d");
+console.log(`start app ..."`);
+console.log(`APP_NAME = "${APP_NAME}"`);
 
 if (!ctx) {
   throw new Error("Could not get 2D context");
