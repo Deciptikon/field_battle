@@ -4,12 +4,13 @@
   "description": "Simple battle game",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc",
-    "start": "node dist/index.js",
-    "dev": "tsc && node dist/index.js",
-    "watch": "tsc -w",
-    "lint": "eslint src --ext .ts",
-    "test": "jest"
+    "build": "tsc && copyfiles src/styles/* dist/styles",
+    "start": "live-server ."
+  },
+  "devDependencies": {
+    "copyfiles": "^2.4.1",
+    "live-server": "^1.2.2",
+    "typescript": "^5.0.0"
   },
   "keywords": [],
   "author": "Deciptikon",
