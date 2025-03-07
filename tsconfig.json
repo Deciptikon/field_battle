@@ -1,0 +1,63 @@
+{
+  "compilerOptions": {
+    // Целевая версия JavaScript (например, ES6)
+    "target": "es6",
+
+    // Модульная система (например, CommonJS, ES6 модули)
+    "module": "commonjs",
+
+    // Включает строгую проверку типов
+    "strict": true,
+
+    // Указывает корневую папку для исходных файлов
+    "rootDir": "./src",
+
+    // Папка для скомпилированных JavaScript-файлов
+    "outDir": "./dist",
+
+    // Включает поддержку синтаксиса JSX (если вы используете React)
+    "jsx": "react",
+
+    // Включает генерацию source maps для отладки
+    "sourceMap": true,
+
+    // Включает поддержку ES модулей в CommonJS
+    "esModuleInterop": true,
+
+    // Включает поддержку экспериментальных декораторов
+    "experimentalDecorators": true,
+
+    // Включает поддержку метаданных для декораторов
+    "emitDecoratorMetadata": true,
+
+    // Включает проверку неиспользуемых локальных переменных
+    "noUnusedLocals": true,
+
+    // Включает проверку неиспользуемых параметров
+    "noUnusedParameters": true,
+
+    // Включает проверку на возможные ошибки при использовании `this`
+    "noImplicitThis": true,
+
+    // Включает проверку на неявные возвращаемые типы
+    "noImplicitReturns": true,
+
+    // Включает проверку на неявные типы `any`
+    "noImplicitAny": true,
+
+    // Включает поддержку синтаксиса `import` для JSON-файлов
+    "resolveJsonModule": true,
+
+    // Включает поддержку абсолютных путей (например, `@/components/`)
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  },
+
+  // Включает все файлы в папке `src`
+  "include": ["src/**/*"],
+
+  // Исключает папку `node_modules` и тесты
+  "exclude": ["node_modules", "**/*.test.ts"]
+}

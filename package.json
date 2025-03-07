@@ -1,0 +1,17 @@
+{
+  "name": "field_battle",
+  "version": "1.0.0",
+  "description": "Simple battle game",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsc && node dist/index.js",
+    "watch": "tsc -w",
+    "lint": "eslint src --ext .ts",
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "Deciptikon",
+  "license": "ISC"
+}
