@@ -1,0 +1,15 @@
+html,
+body {
+  margin: 0px;
+  padding: 0px;
+  overflow: hidden; /* Убираем скролл */
+  height: 100%; /* Занимаем всю высоту */
+}
+
+/* Canvas на весь экран */
+canvas {
+  display: block; /* Убираем лишние отступы */
+  width: 100vw; /* 100% ширины экрана */
+  height: 100vh; /* 100% высоты экрана */
+  background-color: #fff; /* Фоновый цвет Canvas */
+}
