@@ -11,7 +11,7 @@ if (!ctx) {
 ctx.fillStyle = "blue";
 ctx.fillRect(0, 0, canvas.width, canvas.height);
 ctx.beginPath();
-ctx.arc(400, 300, 50, 0, Math.PI * 2);
+ctx.arc(200, 100, 50, 0, Math.PI * 2);
 ctx.fillStyle = "red";
 ctx.fill();
 ctx.closePath();
