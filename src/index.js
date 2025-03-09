@@ -8,18 +8,16 @@ import { Game } from "./game/game.js";
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
-console.log(vkBridge);
-
-const game = new Game(2500, 1080, vkBridge);
+const platform = null;
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
-
-console.log(`APP_NAME = "${APP_NAME}"`);
-
 if (!ctx) {
   throw new Error("Could not get 2D context");
 }
+
+const game = new Game(2500, 1080, vkBridge);
+console.log(`APP_NAME = "${APP_NAME}"`);
 
 vkBridge
   .send("VKWebAppGetConfig")
@@ -27,6 +25,7 @@ vkBridge
     console.log("получаем платформу");
     console.log(data.app);
 
+    platform = data.app;
     game.setPlatform(data.app);
     game.update(ctx);
 
@@ -42,11 +41,13 @@ vkBridge
     console.error(error);
   });
 
-ctx.fillStyle = "blue";
-ctx.fillRect(0, 0, canvas.width, canvas.height);
+if (platform === null) {
+  //ctx.fillStyle = "blue";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-ctx.beginPath();
-ctx.arc(200, 100, 50, 0, Math.PI * 2);
-ctx.fillStyle = "red";
-ctx.fill();
-ctx.closePath();
+  ctx.beginPath();
+  ctx.arc(200, 100, 50, 0, Math.PI * 2);
+  ctx.fillStyle = "red";
+  ctx.fill();
+  ctx.closePath();
+}
