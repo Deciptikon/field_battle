@@ -22,7 +22,10 @@ if (!ctx) {
   throw new Error("Could not get 2D context");
 }
 
-const game = new Game(BASE_WIDTH, BASE_HEIGHT, vkBridge);
+const game = new Game(ctx, vkBridge, {
+  width: BASE_WIDTH,
+  height: BASE_HEIGHT,
+});
 console.log(`APP_NAME = "${APP_NAME}"`);
 
 vkBridge
@@ -33,7 +36,7 @@ vkBridge
 
     platform = data.app;
     game.setPlatform(data.app);
-    game.update(ctx);
+    game.update();
 
     if (data.app === "vkclient" || data.app === "vkme") {
       //game.update(ctx,data.app);
