@@ -29,43 +29,31 @@ const game = new Game(ctx, vkBridge, {
 console.log(`APP_NAME = "${APP_NAME}"`);
 
 if (vkBridge.isWebView() || vkBridge.isIframe()) {
-  console.log(
-    "Код выполняется внутри окружения VK (клиент или iframe VK Mini Apps)"
-  );
+  console.log("Код выполняется внутри окружения VK");
+  vkBridge
+    .send("VKWebAppGetConfig")
+    .then((data) => {
+      console.log("получаем платформу");
+      console.log(data.app);
+
+      platform = data.app;
+      game.setPlatform(data.app);
+      game.update();
+
+      if (data.app === "vkclient" || data.app === "vkme") {
+        //game.update(ctx,data.app);
+      } else if (data.app === "vk.com") {
+        //game.update(ctx,);
+      } else if (data.app === "m.vk.com") {
+        //game.update(ctx,);
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 } else {
-  console.log("Код выполняется вне окружения VK (обычный браузер)");
-}
+  console.log("Код выполняется вне окружения VK");
 
-vkBridge
-  .send("VKWebAppGetConfig")
-  .then((data) => {
-    console.log("получаем платформу");
-    console.log(data.app);
-
-    platform = data.app;
-    game.setPlatform(data.app);
-    game.update();
-
-    if (data.app === "vkclient" || data.app === "vkme") {
-      //game.update(ctx,data.app);
-    } else if (data.app === "vk.com") {
-      //game.update(ctx,);
-    } else if (data.app === "m.vk.com") {
-      //game.update(ctx,);
-    }
-  })
-  .catch((error) => {
-    console.error(error);
-  });
-
-if (platform === null) {
-  console.log("рисуем без платформы");
-  ctx.fillStyle = "blue";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-  ctx.beginPath();
-  ctx.arc(200, 100, 50, 0, Math.PI * 2);
-  ctx.fillStyle = "red";
-  ctx.fill();
-  ctx.closePath();
+  game.setPlatform(`original`);
+  game.update();
 }
