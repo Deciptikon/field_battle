@@ -21,7 +21,7 @@ export class Game {
       this.internalCanvas.height
     );
 
-    this.internalContext.fillStyle = "red";
+    this.internalContext.fillStyle = "white";
     this.internalContext.font = "50px Arial";
     this.internalContext.fillText(`this.platform = ${this.platform}`, 60, 90);
   }

@@ -2,7 +2,13 @@ console.log(`start app ..."`);
 
 //import { vkBridge } from "@vkontakte/vk-bridge/dist/browser.min.js";
 
-import { PI, APP_NAME, COLORS } from "./utils/constants.js";
+import {
+  PI,
+  APP_NAME,
+  COLORS,
+  BASE_WIDTH,
+  BASE_HEIGHT,
+} from "./utils/constants.js";
 import { Game } from "./game/game.js";
 
 const canvas = document.getElementById("canvas");
@@ -16,7 +22,7 @@ if (!ctx) {
   throw new Error("Could not get 2D context");
 }
 
-const game = new Game(2500, 1080, vkBridge);
+const game = new Game(BASE_WIDTH, BASE_HEIGHT, vkBridge);
 console.log(`APP_NAME = "${APP_NAME}"`);
 
 vkBridge
@@ -42,7 +48,7 @@ vkBridge
   });
 
 if (platform === null) {
-  //ctx.fillStyle = "blue";
+  ctx.fillStyle = "blue";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   ctx.beginPath();

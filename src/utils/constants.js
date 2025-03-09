@@ -5,3 +5,6 @@ export const COLORS = {
   GREEN: "#00FF00",
   BLUE: "#0000FF",
 };
+
+export const BASE_HEIGHT = 1080;
+export const BASE_WIDTH = 1920;
