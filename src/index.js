@@ -60,7 +60,7 @@ if (vkBridge.isWebView() || vkBridge.isIframe()) {
 } else {
   console.log("Код выполняется вне окружения VK");
 
-  game.setPlatform(`original`);
+  game.setPlatform("original");
   requestAnimationFrame(loop);
 }
 

@@ -31,7 +31,9 @@ export class Game {
     this.platform = null;
     this.touch = null;
 
-    this.radiusRenderTouch = 10;
+    this.radiusRenderTouch =
+      (Math.min(this.extWidth, this.extHeight) * 0.05) / this.scale;
+    this.borderRenderTouch = 2;
 
     console.log(`Create Game`);
   }
@@ -67,12 +69,6 @@ export class Game {
 
   setPlatform(platform) {
     this.platform = platform;
-
-    if (this.platform === "vk.com" || this.platform === "original") {
-      this.radiusRenderTouch = 20;
-    } else {
-      this.radiusRenderTouch = this.scaledHeight * 0.05;
-    }
   }
 
   drawTouch(ctx, radius) {
@@ -84,12 +80,12 @@ export class Game {
     ctx.save();
 
     ctx.beginPath();
-    ctx.arc(this.touch.x, this.touch.y, radius, 0, 2 * Math.PI); // Рисуем круг
-    ctx.fillStyle = "rgba(0, 119, 255, 0.3)"; // Цвет заливки
-    ctx.fill(); // Заливаем круг
-    ctx.strokeStyle = "#000000"; // Цвет обводки
-    ctx.lineWidth = 0.5; // Толщина обводки
-    ctx.stroke(); // Рисуем обводку
+    ctx.arc(this.touch.x, this.touch.y, radius, 0, 2 * Math.PI);
+    ctx.fillStyle = "rgba(0, 119, 255, 0.3)";
+    ctx.fill();
+    ctx.strokeStyle = "#000000";
+    ctx.lineWidth = this.borderRenderTouch;
+    ctx.stroke();
 
     ctx.restore();
   }
