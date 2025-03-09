@@ -4,6 +4,7 @@ export class Game {
     this.internalCanvas.width = width;
     this.internalCanvas.height = height;
     this.bridge = bridge;
+    this.platform = null;
 
     this.internalContext = this.internalCanvas.getContext("2d");
     console.log(`Create Game`);
@@ -22,11 +23,7 @@ export class Game {
 
     this.internalContext.fillStyle = "red";
     this.internalContext.font = "50px Arial";
-    this.internalContext.fillText(
-      `isWebView() = ${this.bridge.isWebView()}`,
-      60,
-      90
-    );
+    this.internalContext.fillText(`this.platform = ${this.platform}`, 60, 90);
   }
 
   renderToExternal(externalContext) {
@@ -45,6 +42,10 @@ export class Game {
     const dw = this.internalCanvas.width * scale;
     const dh = this.internalCanvas.height * scale;
     externalContext.drawImage(this.internalCanvas, 0, 0, dw, dh);
+  }
+
+  setPlatform(platform) {
+    this.platform = platform;
   }
 
   // Метод для обновления и отрисовки
