@@ -28,7 +28,7 @@ const game = new Game(ctx, vkBridge, {
 });
 console.log(`APP_NAME = "${APP_NAME}"`);
 
-if (vkBridge.isWebView()) {
+if (vkBridge.isWebView() || vkBridge.isIframe()) {
   console.log(
     "Код выполняется внутри окружения VK (клиент или iframe VK Mini Apps)"
   );
