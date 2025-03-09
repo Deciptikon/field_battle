@@ -37,9 +37,13 @@ function showNativeAds(vkBridge, callback) {
 }
 
 export function checkAds(callback) {
-  checkLocalAds(window.vkBridge, callback);
+  //checkLocalAds(window.vkBridge, callback);
+  console.log("код работает, проверяем рекламу");
+  callback();
 }
 
 export function showAds(callback) {
-  showNativeAds(window.vkBridge, callback);
+  //showNativeAds(window.vkBridge, callback);
+  console.log("код работает, показываем рекламу");
+  callback();
 }
