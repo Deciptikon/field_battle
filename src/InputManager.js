@@ -25,11 +25,8 @@ export class InputManager {
         }
       });
 
-      window.addEventListener("touchend", (e) => {
-        const touch = e.touches[0];
+      window.addEventListener("touchend", () => {
         if (this.leftDown) {
-          this.mouse.x = touch.clientX;
-          this.mouse.y = touch.clientY;
           this.active = true;
           this.leftDown = false;
           console.log("Касание закончилось");
