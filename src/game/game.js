@@ -1,3 +1,5 @@
+import { Button } from "../utils/button.js";
+
 export class Game {
   constructor(ctx, bridge, options) {
     this.bridge = bridge;
@@ -36,6 +38,29 @@ export class Game {
     this.borderRenderTouch = 2;
 
     console.log(`Create Game`);
+
+    this.btt1 = new Button(
+      function () {
+        console.log(`CallBack ~~~`);
+      },
+      {
+        x: 500,
+        y: 200,
+        w: 300,
+        h: 100,
+      }
+    );
+    this.btt2 = new Button(
+      function () {
+        console.log(`CallBack !!!`);
+      },
+      {
+        x: 500,
+        y: 500,
+        w: 300,
+        h: 100,
+      }
+    );
   }
 
   drawGame(ctx) {
@@ -52,12 +77,9 @@ export class Game {
   }
 
   renderToExternal() {
-    console.log(`renderToExternal`);
-
     this.extCtx.clearRect(0, 0, this.extWidth, this.extHeight);
 
     // Рисуем внутренний canvas на внешнем
-    console.log(`scale = ${this.scale}`);
     this.extCtx.drawImage(
       this.intCanvas,
       this.x,
@@ -72,7 +94,6 @@ export class Game {
   }
 
   drawTouch(ctx, radius) {
-    console.log(`рисуем касание`);
     if (this.touch === null) {
       return;
     }
@@ -93,6 +114,8 @@ export class Game {
   // Метод для обновления и отрисовки
   render() {
     this.drawGame(this.intCtx); // Рисуем на внутреннем контексте
+    this.btt1.render(this.intCtx);
+    this.btt2.render(this.intCtx);
     this.drawTouch(this.intCtx, this.radiusRenderTouch);
     this.renderToExternal(); // Отрисовываем на внешнем контексте
   }
@@ -109,5 +132,7 @@ export class Game {
     }
 
     //обновление всех компонентов
+    this.btt1.update(this.touch);
+    this.btt2.update(this.touch);
   }
 }
