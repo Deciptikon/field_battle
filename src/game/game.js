@@ -1,21 +1,15 @@
-import { VKBridge } from "@vkontakte/vk-bridge";
-
 export class Game {
-  private internalCanvas: HTMLCanvasElement;
-  private internalContext: CanvasRenderingContext2D;
-  private bridge: VKBridge;
-
-  constructor(width: number, height: number, bridge: VKBridge) {
+  constructor(width, height, bridge) {
     this.internalCanvas = document.createElement("canvas");
     this.internalCanvas.width = width;
     this.internalCanvas.height = height;
     this.bridge = bridge;
 
-    this.internalContext = this.internalCanvas.getContext("2d")!;
+    this.internalContext = this.internalCanvas.getContext("2d");
     console.log(`Create Game`);
   }
 
-  drawInternal(): void {
+  drawInternal() {
     //this.internalContext.clearRect(0, 0, this.internalCanvas.width, this.internalCanvas.height);
 
     this.internalContext.fillStyle = "green";
@@ -35,9 +29,9 @@ export class Game {
     );
   }
 
-  renderToExternal(externalContext: CanvasRenderingContext2D): void {
+  renderToExternal(externalContext) {
     console.log(`renderToExternal`);
-    // Очищаем внешний canvas
+
     externalContext.clearRect(
       0,
       0,
@@ -46,16 +40,15 @@ export class Game {
     );
 
     // Рисуем внутренний canvas на внешнем
-    const scale: number =
-      externalContext.canvas.height / this.internalCanvas.height;
+    const scale = externalContext.canvas.height / this.internalCanvas.height;
     console.log(`scale = ${scale}`);
-    const dw: number = this.internalCanvas.width * scale;
-    const dh: number = this.internalCanvas.height * scale;
+    const dw = this.internalCanvas.width * scale;
+    const dh = this.internalCanvas.height * scale;
     externalContext.drawImage(this.internalCanvas, 0, 0, dw, dh);
   }
 
   // Метод для обновления и отрисовки
-  update(externalContext: CanvasRenderingContext2D): void {
+  update(externalContext) {
     this.drawInternal(); // Рисуем на внутреннем контексте
     this.renderToExternal(externalContext); // Отрисовываем на внешнем контексте
   }
