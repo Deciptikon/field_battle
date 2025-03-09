@@ -6,5 +6,5 @@ export const COLORS = {
   BLUE: "#0000FF",
 };
 
-export const BASE_HEIGHT = 1080;
-export const BASE_WIDTH = 1920;
+export const BASE_HEIGHT = 1000;
+export const BASE_WIDTH = 2500;

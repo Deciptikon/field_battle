@@ -15,7 +15,12 @@ export class Game {
     this.scaledWidth = this.intWidth * this.scale;
     this.scaledHeight = this.intHeight * this.scale;
     // центрирование по ширине
-    this.x = (this.extWidth - this.scaledWidth) / 2.0;
+    if (this.extWidth > this.scaledWidth) {
+      this.x = (this.extWidth - this.scaledWidth) / 2.0;
+    } else {
+      this.x = 0;
+    }
+
     this.y = 0;
     // создание внутреннего канваса
     this.intCanvas = document.createElement("canvas");
