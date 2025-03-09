@@ -17,7 +17,6 @@ export class InputManager {
 
       window.addEventListener("touchmove", (e) => {
         const touch = e.touches[0];
-        this.deltaY = 0;
         if (this.leftDown) {
           this.mouse.x = touch.clientX;
           this.mouse.y = touch.clientY;
@@ -26,13 +25,14 @@ export class InputManager {
         }
       });
 
-      window.addEventListener("touchend", () => {
+      window.addEventListener("touchend", (e) => {
+        const touch = e.touches[0];
         if (this.leftDown) {
           this.mouse.x = touch.clientX;
           this.mouse.y = touch.clientY;
           this.active = true;
           this.leftDown = false;
-          //console.log("Касание закончилось");
+          console.log("Касание закончилось");
         }
       });
     } else {
