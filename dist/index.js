@@ -4,7 +4,7 @@ import { APP_NAME } from "./utils/constants.js";
 import { Game } from "./game/game.js";
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-const game = new Game(2160, 1080);
+const game = new Game(2160, 1080, bridge);
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 console.log(`APP_NAME = "${APP_NAME}"`);

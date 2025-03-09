@@ -1,8 +1,9 @@
 export class Game {
-    constructor(width, height) {
+    constructor(width, height, bridge) {
         this.internalCanvas = document.createElement("canvas");
         this.internalCanvas.width = width;
         this.internalCanvas.height = height;
+        this.bridge = bridge;
         this.internalContext = this.internalCanvas.getContext("2d");
         console.log(`Create Game`);
     }
@@ -12,7 +13,7 @@ export class Game {
         this.internalContext.fillRect(0, 0, this.internalCanvas.width, this.internalCanvas.height);
         this.internalContext.fillStyle = "red";
         this.internalContext.font = "50px Arial";
-        this.internalContext.fillText("Hello, World!", 60, 90);
+        this.internalContext.fillText(`isWebView() = ${this.bridge.isWebView()}`, 60, 90);
     }
     renderToExternal(externalContext) {
         console.log(`renderToExternal`);

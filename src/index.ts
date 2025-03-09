@@ -7,7 +7,7 @@ import { Game } from "./game/game.js";
 const canvas = document.getElementById("canvas") as HTMLCanvasElement;
 const ctx = canvas.getContext("2d");
 
-const game = new Game(2160, 1080);
+const game = new Game(2160, 1080, bridge);
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;

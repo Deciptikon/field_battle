@@ -1,11 +1,15 @@
+import { VKBridge } from "@vkontakte/vk-bridge";
+
 export class Game {
   private internalCanvas: HTMLCanvasElement;
   private internalContext: CanvasRenderingContext2D;
+  private bridge: VKBridge;
 
-  constructor(width: number, height: number) {
+  constructor(width: number, height: number, bridge: VKBridge) {
     this.internalCanvas = document.createElement("canvas");
     this.internalCanvas.width = width;
     this.internalCanvas.height = height;
+    this.bridge = bridge;
 
     this.internalContext = this.internalCanvas.getContext("2d")!;
     console.log(`Create Game`);
@@ -24,7 +28,11 @@ export class Game {
 
     this.internalContext.fillStyle = "red";
     this.internalContext.font = "50px Arial";
-    this.internalContext.fillText("Hello, World!", 60, 90);
+    this.internalContext.fillText(
+      `isWebView() = ${this.bridge.isWebView()}`,
+      60,
+      90
+    );
   }
 
   renderToExternal(externalContext: CanvasRenderingContext2D): void {
