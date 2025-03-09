@@ -27,7 +27,7 @@ vkBridge
     console.log("получаем платформу");
     console.log(data.app);
 
-    setPlatform(data.app);
+    game.setPlatform(data.app);
     game.update(ctx);
 
     if (data.app === "vkclient" || data.app === "vkme") {
