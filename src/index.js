@@ -51,6 +51,7 @@ vkBridge
   });
 
 if (platform === null) {
+  console.log("рисуем без платформы");
   ctx.fillStyle = "blue";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
