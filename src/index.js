@@ -8,13 +8,19 @@ import {
   COLORS,
   BASE_WIDTH,
   BASE_HEIGHT,
+  BASE_FPS,
 } from "./utils/constants.js";
+import { input } from "./InputManager.js";
 import { Game } from "./game/game.js";
 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
-let platform = null;
+const frameTime = 1000 / BASE_FPS; // Время одного кадра в миллисекундах
+let lastTime = 0; // Время последнего кадра
+let deltaTime = 0; // Время, прошедшее с последнего кадра
+
+let platform = null; // тип платформы на которой запущен код
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
@@ -38,7 +44,7 @@ if (vkBridge.isWebView() || vkBridge.isIframe()) {
 
       platform = data.app;
       game.setPlatform(data.app);
-      game.update();
+      requestAnimationFrame(loop);
 
       if (data.app === "vkclient" || data.app === "vkme") {
         //game.update(ctx,data.app);
@@ -55,5 +61,24 @@ if (vkBridge.isWebView() || vkBridge.isIframe()) {
   console.log("Код выполняется вне окружения VK");
 
   game.setPlatform(`original`);
-  game.update();
+  requestAnimationFrame(loop);
+}
+
+function loop(currentTime) {
+  requestAnimationFrame(loop);
+
+  // Вычисляем deltaTime (время, прошедшее с последнего кадра)
+  if (!lastTime) lastTime = currentTime;
+  deltaTime = currentTime - lastTime;
+
+  // Если прошло достаточно времени для следующего кадра
+  if (deltaTime >= frameTime) {
+    lastTime = currentTime - (deltaTime % frameTime); // Корректируем lastTime
+
+    // Обновляем игру
+    game.update(input.getTouch(), deltaTime / 1000);
+
+    // Отрисовываем кадр
+    game.render();
+  }
 }

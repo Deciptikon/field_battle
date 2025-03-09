@@ -30,18 +30,21 @@ export class Game {
     this.intCtx = this.intCanvas.getContext("2d");
 
     this.platform = null;
+    this.touch = null;
     console.log(`Create Game`);
   }
 
-  drawInternal() {
-    //this.internalContext.clearRect(0, 0, this.internalCanvas.width, this.internalCanvas.height);
+  drawGame(ctx) {
+    ctx.save();
 
-    this.intCtx.fillStyle = "green";
-    this.intCtx.fillRect(0, 0, this.intWidth, this.intHeight);
+    ctx.fillStyle = "green";
+    ctx.fillRect(0, 0, this.intWidth, this.intHeight);
 
-    this.intCtx.fillStyle = "red";
-    this.intCtx.font = "50px Arial";
-    this.intCtx.fillText(`this.platform = ${this.platform}`, 60, 90);
+    ctx.fillStyle = "red";
+    ctx.font = "50px Arial";
+    ctx.fillText(`this.platform = ${this.platform}`, 60, 90);
+
+    ctx.restore();
   }
 
   renderToExternal() {
@@ -64,9 +67,43 @@ export class Game {
     this.platform = platform;
   }
 
+  drawTouch(ctx, radius) {
+    console.log(`рисуем касание`);
+    if (this.touch === null) {
+      return;
+    }
+
+    ctx.save();
+
+    ctx.beginPath();
+    ctx.arc(this.touch.x, this.touch.y, radius, 0, 2 * Math.PI); // Рисуем круг
+    ctx.fillStyle = "rgba(0, 119, 255, 0.3)"; // Цвет заливки
+    ctx.fill(); // Заливаем круг
+    ctx.strokeStyle = "#000000"; // Цвет обводки
+    ctx.lineWidth = 0.5; // Толщина обводки
+    ctx.stroke(); // Рисуем обводку
+
+    ctx.restore();
+  }
+
   // Метод для обновления и отрисовки
-  update() {
-    this.drawInternal(); // Рисуем на внутреннем контексте
+  render() {
+    this.drawGame(this.intCtx); // Рисуем на внутреннем контексте
+    this.drawTouch(this.intCtx, 20);
     this.renderToExternal(); // Отрисовываем на внешнем контексте
+  }
+
+  update(touch, deltaTime) {
+    this.deltaTime = deltaTime;
+    if (touch === null) {
+      this.touch = null;
+    } else {
+      this.touch = {
+        x: (touch.x - this.x) / this.scale,
+        y: (touch.y - this.y) / this.scale,
+      };
+    }
+
+    //обновление всех компонентов
   }
 }

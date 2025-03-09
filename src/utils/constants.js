@@ -8,3 +8,5 @@ export const COLORS = {
 
 export const BASE_HEIGHT = 1000;
 export const BASE_WIDTH = 2500;
+
+export const BASE_FPS = 30;
