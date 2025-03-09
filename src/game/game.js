@@ -20,7 +20,6 @@ export class Game {
     } else {
       this.x = 0;
     }
-
     this.y = 0;
     // создание внутреннего канваса
     this.intCanvas = document.createElement("canvas");
@@ -31,6 +30,9 @@ export class Game {
 
     this.platform = null;
     this.touch = null;
+
+    this.radiusRenderTouch = 10;
+
     console.log(`Create Game`);
   }
 
@@ -65,6 +67,12 @@ export class Game {
 
   setPlatform(platform) {
     this.platform = platform;
+
+    if (this.platform === "vk.com" || this.platform === "original") {
+      this.radiusRenderTouch = 20;
+    } else {
+      this.radiusRenderTouch = this.scaledHeight * 0.05;
+    }
   }
 
   drawTouch(ctx, radius) {
@@ -89,7 +97,7 @@ export class Game {
   // Метод для обновления и отрисовки
   render() {
     this.drawGame(this.intCtx); // Рисуем на внутреннем контексте
-    this.drawTouch(this.intCtx, 20);
+    this.drawTouch(this.intCtx, this.radiusRenderTouch);
     this.renderToExternal(); // Отрисовываем на внешнем контексте
   }
 
