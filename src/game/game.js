@@ -1,4 +1,5 @@
 import { Button } from "../utils/button.js";
+import { checkAds, showAds } from "../adsManager.js";
 
 export class Game {
   constructor(ctx, bridge, options) {
@@ -42,6 +43,9 @@ export class Game {
     this.btt1 = new Button(
       function () {
         console.log(`CallBack ~~~`);
+        checkAds(function () {
+          console.log(`checkAds()`);
+        });
       },
       {
         x: 500,
@@ -53,6 +57,9 @@ export class Game {
     this.btt2 = new Button(
       function () {
         console.log(`CallBack !!!`);
+        showAds(function () {
+          console.log(`showAds()`);
+        });
       },
       {
         x: 500,
