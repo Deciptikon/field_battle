@@ -1,6 +1,6 @@
 console.log(`start app ..."`);
 
-//import bridge from '@vkontakte/vk-bridge';
+import bridge from "@vkontakte/vk-bridge";
 import { PI, APP_NAME, COLORS } from "./utils/constants.js";
 import { Game } from "./game/game.js";
 
@@ -18,28 +18,27 @@ if (!ctx) {
   throw new Error("Could not get 2D context");
 }
 
-interface VKWebAppGetConfigResponse {
-  app: string;
-  // Другие поля, которые могут быть в ответе
+if (bridge.isWebView()) {
+  console.log(`isWebView"`);
 }
 
-vkBridge
-  .send<VKWebAppGetConfigResponse>("VKWebAppGetConfig")
-  .then((data: VKWebAppGetConfigResponse) => {
-    console.log("получаем платформу");
-    console.log(data.app);
+bridge.subscribe((event) => {
+  console.log("Событие от VK Bridge:", event);
+});
 
-    if (data.app === "vkclient" || data.app === "vkme") {
-      console.log("data.app === vkclient");
-    } else if (data.app === "vk.com") {
-      console.log("data.app === vk.com");
-    } else {
-      console.log("data.app === other");
-    }
-  })
-  .catch((error: Error) => {
-    console.error(error);
-  });
+if (bridge.isWebView()) {
+  bridge
+    .send("VKWebAppInit")
+    .then(() => {
+      console.log("VKWebAppInit успешно выполнен");
+      game.update(ctx);
+    })
+    .catch((error) => {
+      console.error("Ошибка при инициализации VKWebAppInit:", error);
+    });
+} else {
+  console.warn("Приложение запущено вне окружения VK Mini Apps");
+}
 
 ctx.fillStyle = "blue";
 ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -49,5 +48,3 @@ ctx.arc(200, 100, 50, 0, Math.PI * 2);
 ctx.fillStyle = "red";
 ctx.fill();
 ctx.closePath();
-
-game.update(ctx);
