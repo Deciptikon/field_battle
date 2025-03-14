@@ -1,5 +1,9 @@
 import { Button } from "../utils/button.js";
 import { checkAds, showAds } from "../adsManager.js";
+import { assetManager } from "../assetManager.js";
+import { Data } from "./data/data.js";
+import { loadScreen } from "./screens/loadScreen.js";
+import { baseScreen } from "./screens/baseScreen.js";
 
 export class Game {
   constructor(ctx, bridge, options) {
@@ -38,6 +42,39 @@ export class Game {
       (Math.min(this.extWidth, this.extHeight) * 0.05) / this.scale;
     this.borderRenderTouch = 2;
 
+    this.imageAssets = new assetManager(); // набор изображений
+    this.soundAssets = {}; // набор звуков
+    this.data = new Data(bridge); // структура данных
+
+    const params = {
+      x: this.x,
+      y: this.y,
+      w: this.extWidth / this.scale,
+      h: this.extHeight / this.scale,
+    };
+
+    this.screens = {
+      loadScreen: new loadScreen(
+        this.imageAssets,
+        this.soundAssets,
+        this.data,
+        params
+      ),
+      mainScreen: new baseScreen(
+        this.imageAssets,
+        this.soundAssets,
+        this.data,
+        params
+      ),
+      optionScreen: new baseScreen(
+        this.imageAssets,
+        this.soundAssets,
+        this.data,
+        params
+      ),
+    };
+    this.currentScreen = this.screens.loadScreen;
+
     console.log(`Create Game`);
 
     this.btt1 = new Button(
@@ -73,8 +110,10 @@ export class Game {
   drawGame(ctx) {
     ctx.save();
 
-    ctx.fillStyle = "green";
-    ctx.fillRect(0, 0, this.intWidth, this.intHeight);
+    this.currentScreen.render(ctx);
+
+    //ctx.fillStyle = "green";
+    //ctx.fillRect(0, 0, this.intWidth, this.intHeight);
 
     ctx.fillStyle = "red";
     ctx.font = "50px Arial";
@@ -137,6 +176,8 @@ export class Game {
         y: (touch.y - this.y) / this.scale,
       };
     }
+
+    this.currentScreen.update();
 
     //обновление всех компонентов
     this.btt1.update(this.touch);

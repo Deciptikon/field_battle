@@ -20,20 +20,25 @@ export class Animation {
     }
   }
 
+  incrementPos() {
+    this.pos += this.speed;
+    if (!(this.pos < this.anima.length)) {
+      this.pos = 0;
+    }
+  }
+
   update(num = null) {
     if (num === null) {
-      this.pos += this.speed;
-      if (!(this.pos < this.anima.length)) {
-        this.pos = 0;
-      }
+      this.incrementPos();
     } else {
       this.pos = Math.abs(Math.floor(num));
     }
   }
 
-  getCurrentFrame() {
+  getCurrentFrame(increment = false) {
     if (this.anima.length > 0) {
       const i = Math.floor(this.pos) % this.anima.length;
+      if (increment) this.incrementPos();
       return this.anima[i];
     } else {
       return null;
@@ -66,4 +71,55 @@ export function cropImage(image, x, y, width, height) {
   const croppedImage = new Image();
   croppedImage.src = canvas.toDataURL();
   return croppedImage;
+}
+
+export class assetManager {
+  constructor() {
+    this.obj = {};
+  }
+
+  get(key) {
+    if (key in this.obj) {
+      return this.obj[key];
+    } else {
+      return null;
+    }
+  }
+
+  loadFromStruct(data, callback = null) {
+    if (data.isAnimate) {
+      loadImage(data.path)
+        .then((img) => {
+          console.log(`Изображение ${data.key} загружено.`);
+          this.obj[data.key] = new Animation({
+            pos: data.init_index,
+            speed: data.speed,
+          });
+          this.obj[data.key].fromSequention(
+            img,
+            data.w,
+            data.h,
+            data.kx,
+            data.ky,
+            data.x0,
+            data.y0
+          );
+
+          if (callback !== null) callback();
+        })
+        .catch((error) => {
+          console.error(error.message);
+        });
+    } else {
+      loadImage(data.path)
+        .then((img) => {
+          console.log(`Изображение ${data.key} загружено.`);
+          this.obj[data.key] = img;
+          if (callback !== null) callback();
+        })
+        .catch((error) => {
+          console.error(error.message);
+        });
+    }
+  }
 }

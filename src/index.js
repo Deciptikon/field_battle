@@ -106,8 +106,8 @@ function loop(currentTime) {
 
     // Отрисовываем кадр
     game.render();
-    const fr = anim.getCurrentFrame();
-    ctx.drawImage(fr, 0, 0, fr.width, fr.height);
+    //const fr = anim.getCurrentFrame();
+    //ctx.drawImage(fr, 0, 0, fr.width, fr.height);
 
     //if (image1 !== null) {
     //const croppp = cropImage(image1, 0, 0, 128, 128);
