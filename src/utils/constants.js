@@ -24,6 +24,11 @@ export const SOURCE_IMAGE = [
     isAnimate: false,
   },
   {
+    key: "menu_background",
+    path: "./src/img/menu_background.jpeg",
+    isAnimate: false,
+  },
+  {
     key: "test_anima",
     path: "./src/img/seq_1.png",
     isAnimate: true,
@@ -35,5 +40,13 @@ export const SOURCE_IMAGE = [
     ky: 1,
     init_index: 0,
     speed: 0.2,
+  },
+];
+
+export const SOURCE_SOUND = [
+  {
+    key: "main_theme",
+    path: "./src/sound/main_theme.wav",
+    isMusic: true,
   },
 ];

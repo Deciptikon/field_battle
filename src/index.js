@@ -13,6 +13,9 @@ import {
 import { input } from "./InputManager.js";
 import { Animation, loadImage, cropImage } from "./assetManager.js";
 import { Game } from "./game/game.js";
+import { vkBridge, initVKBridge } from "./bridge.js";
+
+initVKBridge();
 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");

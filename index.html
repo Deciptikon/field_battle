@@ -9,16 +9,6 @@
   <body>
     <canvas id="canvas" width="800" height="600"></canvas>
 
-    <script>
-      function initBridge() {
-        console.log(`initBridge()`);
-        vkBridge.send("VKWebAppInit");
-      }
-    </script>
-    <script
-      src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"
-      onload="initBridge()"
-    ></script>
     <script type="module" src="./src/index.js?v=1.0.10"></script>
   </body>
 </html>

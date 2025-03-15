@@ -1,44 +1,89 @@
-import { SOURCE_IMAGE } from "../../utils/constants.js";
+import { SOURCE_IMAGE, SOURCE_SOUND } from "../../utils/constants.js";
 import { assetManager, loadImage } from "../../assetManager.js";
+import { Button } from "../../utils/button.js";
 
 export class loadScreen {
-  constructor(imageAssets, soundAssets, model, params) {
+  constructor(imageAssets, soundAssets, model, params, callback = null) {
     //
     this.x = params.x;
     this.y = params.y;
     this.w = params.w;
     this.h = params.h;
+    this.toScreen = params.toScreen;
 
     this.background = null;
     this.imageAssets = imageAssets;
+    this.soundAssets = soundAssets;
 
-    this.progress = 0;
+    this.callback = callback;
+
+    this.progressLoadImg = 0;
+    this.progressLoadSnd = 0;
     this.loaded = false;
 
-    this.imageAssets.loadFromStruct(SOURCE_IMAGE[this.progress], () => {
-      this.progress++;
+    this.next = false;
+    const wbtt = 500;
+    const hbtt = 200;
+    this.nextBtt = new Button(
+      function () {
+        console.log(`next screen`);
+        if (callback !== null) callback();
+      },
+      {
+        x: (this.w - wbtt) / 2,
+        y: (this.h - hbtt) / 2,
+        w: wbtt,
+        h: hbtt,
+      }
+    );
+
+    this.imageAssets.loadFromStruct(SOURCE_IMAGE[this.progressLoadImg], () => {
+      this.progressLoadImg++;
       this.loaded = true;
-      console.log(`this.progress = ${this.progress}`);
+      console.log(`this.progress = ${this.progressLoadImg}`);
     });
   }
 
   update(touch) {
     if (this.loaded) {
-      if (this.progress < SOURCE_IMAGE.length) {
+      if (this.progressLoadImg < SOURCE_IMAGE.length) {
         this.loaded = false;
-        this.imageAssets.loadFromStruct(SOURCE_IMAGE[this.progress], () => {
-          this.progress++;
-          this.loaded = true;
-          console.log(`this.progress = ${this.progress}`);
-        });
+        this.imageAssets.loadFromStruct(
+          SOURCE_IMAGE[this.progressLoadImg],
+          () => {
+            this.progressLoadImg++;
+            this.loaded = true;
+            console.log(`this.progressLoadImg = ${this.progressLoadImg}`);
+          }
+        );
+      } else if (this.progressLoadSnd < SOURCE_SOUND.length) {
+        //грузим звуки
+        this.loaded = false;
+        this.soundAssets.loadFromStruct(
+          SOURCE_SOUND[this.progressLoadSnd],
+          () => {
+            this.progressLoadSnd++;
+            this.loaded = true;
+            console.log(`this.progressLoadSnd = ${this.progressLoadSnd}`);
+          }
+        );
       } else {
         console.log(`Всё загружено ....`);
-        // значит все картинки загружены
-        // доделываем приготовления и переходим на следующий экран
-        // может быть через каллбек
+        // значит все картинки загружены.
+        // все звуки загружены.
+        // синхронизируем данные из облака,
+        // доделываем приготовления и переходим на следующий экран через каллбек
+        // if (this.callback !== null) this.callback();
+        if (!this.next) {
+          this.next = true;
+        }
       }
     }
-    this.imageAssets.get("test_anima").update();
+
+    if (this.next) {
+      this.nextBtt.update(touch);
+    }
+    //this.imageAssets.get("test_anima")?.update();
   }
 
   drawLoadBar(ctx) {
@@ -48,17 +93,21 @@ export class loadScreen {
     const h = this.h * 0.05;
     const x = (this.w - w) / 2;
     const y = (this.h - h) / 2;
-    const p = this.progress / SOURCE_IMAGE.length;
+    const p =
+      (this.progressLoadImg + this.progressLoadSnd) /
+      (SOURCE_IMAGE.length + SOURCE_SOUND.length);
     ctx.fillStyle = "rgb(255, 0, 234)";
     ctx.fillRect(x, y, w, h);
-    ctx.fillStyle = "rgba(255, 0, 234, 0.29)";
-    ctx.fillRect(x, y + h, w, h);
+    ctx.fillStyle = "rgba(0, 0, 0, 0.25)";
+    ctx.fillRect(x, y + h, w, h * 1.5);
     ctx.fillStyle = "rgba(0, 120, 255, 0.41)";
     ctx.fillRect(x, y, w * p, h);
 
     ctx.fillStyle = "white";
     ctx.font = "50px Arial";
-    ctx.fillText(`Progress ${p * 100}%`, x, y + 2 * h);
+    const txt = `Загрузка ${Math.floor(p * 100)}%`;
+    const tw = ctx.measureText(txt).width;
+    ctx.fillText(txt, (this.w - tw) / 2, y + 2 * h);
 
     ctx.restore();
   }
@@ -70,10 +119,6 @@ export class loadScreen {
     ctx.fillStyle = "green";
     ctx.fillRect(0, 0, this.w, this.h);
 
-    if (this.imageAssets.get() !== null) {
-      //
-    }
-
     if (this.imageAssets.get("loader_background") !== null) {
       if (this.background === null)
         this.background = this.imageAssets.get("loader_background");
@@ -81,17 +126,22 @@ export class loadScreen {
       const k = this.h / this.background.height;
       ctx.drawImage(
         this.imageAssets.get("loader_background"),
-        0,
+        (this.w - this.background.width * k) / 2,
         0,
         this.background.width * k,
         this.background.height * k
       );
 
-      this.drawLoadBar(ctx);
+      if (this.next) {
+        this.nextBtt.render(ctx);
+      } else {
+        this.drawLoadBar(ctx);
+      }
     }
 
-    const fr = this.imageAssets.get("test_anima").getCurrentFrame();
-    ctx.drawImage(fr, 0, 0, fr.width, fr.height);
+    //this.imageAssets.get("test_anima")?.draw(ctx, 0, 0);
+    //const fr = this.imageAssets.get("test_anima").getCurrentFrame();
+    //ctx.drawImage(fr, 0, 0, fr.width, fr.height);
 
     ctx.restore();
   }

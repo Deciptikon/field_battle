@@ -44,6 +44,17 @@ export class Animation {
       return null;
     }
   }
+
+  draw(ctx, x, y, w = null, h = null) {
+    if (this.anima.length > 0) {
+      const i = Math.floor(this.pos) % this.anima.length;
+      let width = w === null ? this.anima[i].width : w;
+      let height = h === null ? this.anima[i].height : h;
+      ctx.drawImage(this.anima[i], x, y, width, height);
+    } else {
+      console.log("анимация отсутствует");
+    }
+  }
 }
 
 export function loadImage(path) {
