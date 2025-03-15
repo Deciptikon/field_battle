@@ -1,15 +1,26 @@
-import { SOURCE_IMAGE, SOURCE_SOUND } from "../../utils/constants.js";
-import { assetManager, loadImage } from "../../assetManager.js";
+import { SOURCE_SOUND } from "../../sound/SOURCE_SOUND.js";
+import { SOURCE_IMAGE } from "../../img/SOURCE_IMAGE.js";
 import { Button } from "../../utils/button.js";
 
 export class loadScreen {
-  constructor(imageAssets, soundAssets, model, params, callback = null) {
+  constructor(
+    imageAssets,
+    soundAssets,
+    model,
+    options,
+    params,
+    toScreen,
+    callback = null
+  ) {
     //
+    this.model = model;
+    this.options = options;
+
     this.x = params.x;
     this.y = params.y;
     this.w = params.w;
     this.h = params.h;
-    this.toScreen = params.toScreen;
+    this.toScreen = toScreen;
 
     this.background = null;
     this.imageAssets = imageAssets;

@@ -1,7 +1,7 @@
 import { isEmpty } from "../../utils/utils.js";
 import { Button } from "../../utils/button.js";
 
-export class mainScreen {
+export class optionsScreen {
   constructor(imageAssets, soundAssets, model, options, params, toScreen) {
     //
     this.model = model;
@@ -11,6 +11,7 @@ export class mainScreen {
     this.y = params.y;
     this.w = params.w;
     this.h = params.h;
+    this.toScreen = toScreen;
 
     this.background = null;
     this.imageAssets = imageAssets;
@@ -22,12 +23,13 @@ export class mainScreen {
     this.listObjects.push(
       new Button(
         function () {
-          console.log(`to battle`);
+          console.log(`Back in MAIN`);
+          toScreen("mainScreen");
         },
         {
-          x: 500,
-          y: 200,
-          w: 300,
+          x: 100,
+          y: 100,
+          w: 100,
           h: 100,
         }
       )
@@ -35,8 +37,7 @@ export class mainScreen {
     this.listObjects.push(
       new Button(
         function () {
-          console.log(`to options`);
-          toScreen("optionsScreen");
+          console.log(`что-то делаем`);
         },
         {
           x: 500,
@@ -49,7 +50,7 @@ export class mainScreen {
   }
 
   init() {
-    this.background = this.imageAssets.get("menu_background");
+    this.background = this.imageAssets.get("options_background");
   }
 
   update(touch) {
@@ -65,6 +66,8 @@ export class mainScreen {
         obj?.update(touch);
       });
     }
+
+    //this.toScreen("loadScreen");
   }
 
   render(ctx) {

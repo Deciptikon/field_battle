@@ -7,6 +7,7 @@ import { Data } from "./data/data.js";
 import { baseScreen } from "./screens/baseScreen.js";
 import { loadScreen } from "./screens/loadScreen.js";
 import { mainScreen } from "./screens/mainScreen.js";
+import { optionsScreen } from "./screens/optionsScreen.js";
 
 export class Game {
   constructor(ctx, bridge, options) {
@@ -54,24 +55,31 @@ export class Game {
     this.screens = {};
     this.currentScreen = null;
 
+    // каллбэк для переключения экранов
+    const toScreen = (key) => {
+      if (this.screens[key]) this.currentScreen = this.screens[key];
+    };
+
     const params = {
       x: this.x,
       y: this.y,
       w: this.extWidth / this.scale,
       h: this.extHeight / this.scale,
-      toScreen: (key) => {
-        if (key in this.screens) this.currentScreen = this.screens[key];
-      },
     };
 
     this.screens.loadScreen = new loadScreen(
       this.imageAssets,
       this.soundAssets,
       this.data,
+      this.options,
       params,
+      (key) => {
+        if (this.screens[key]) this.currentScreen = this.screens[key];
+      },
       () => {
         console.log("next screen");
         this.screens.mainScreen.init();
+        this.screens.optionsScreen.init();
         this.currentScreen = this.screens.mainScreen;
       }
     );
@@ -79,13 +87,21 @@ export class Game {
       this.imageAssets,
       this.soundAssets,
       this.data,
-      params
+      this.options,
+      params,
+      (key) => {
+        if (this.screens[key]) this.currentScreen = this.screens[key];
+      }
     );
-    this.screens.optionScreen = new baseScreen(
+    this.screens.optionsScreen = new optionsScreen(
       this.imageAssets,
       this.soundAssets,
       this.data,
-      params
+      this.options,
+      params,
+      (key) => {
+        if (this.screens[key]) this.currentScreen = this.screens[key];
+      }
     );
 
     this.currentScreen = this.screens.loadScreen;
@@ -175,8 +191,8 @@ export class Game {
   // Метод для обновления и отрисовки
   render() {
     this.drawGame(this.intCtx); // Рисуем на внутреннем контексте
-    this.btt1.render(this.intCtx);
-    this.btt2.render(this.intCtx);
+    //this.btt1.render(this.intCtx);
+    //this.btt2.render(this.intCtx);
     this.drawTouch(this.intCtx, this.radiusRenderTouch);
     this.renderToExternal(); // Отрисовываем на внешнем контексте
   }
@@ -195,7 +211,7 @@ export class Game {
     this.currentScreen.update(this.touch);
 
     //обновление всех компонентов
-    this.btt1.update(this.touch);
-    this.btt2.update(this.touch);
+    //this.btt1.update(this.touch);
+    //this.btt2.update(this.touch);
   }
 }
