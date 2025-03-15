@@ -1,10 +1,11 @@
 export class soundManager {
-  constructor() {
+  constructor(options) {
     this.sounds = {};
+    this.options = options;
   }
 
   loadFromStruct(struct, callback = null) {
-    this.addSound(struct.key, struct.path)
+    this.addSound(struct.key, struct.path, struct.type, struct.baseVolume)
       .then((message) => {
         console.log(message);
         if (callback !== null) callback();
@@ -15,13 +16,17 @@ export class soundManager {
   }
 
   // Добавление звука с промисом
-  addSound(name, url) {
+  addSound(name, url, type = 0, baseVolume = 1.0) {
     return new Promise((resolve, reject) => {
       const audio = new Audio(url);
 
       // Обработка успешной загрузки
       audio.addEventListener("canplaythrough", () => {
-        this.sounds[name] = audio;
+        this.sounds[name] = {
+          audio: audio,
+          type: type,
+          baseVolume: baseVolume,
+        };
         resolve(`Звук "${name}" успешно загружен.`);
       });
 
@@ -36,19 +41,33 @@ export class soundManager {
   }
 
   // Воспроизведение звука
-  playSound(name) {
+  playSound(name, volume = null) {
     if (this.sounds[name]) {
-      this.sounds[name].play();
+      const optVol =
+        volume === null
+          ? this.options.getVolumeSound(this.sounds[name].type)
+          : volume;
+      const audio = this.sounds[name].audio;
+      const bVol = this.sounds[name].baseVolume;
+
+      audio.volume = Math.min(1, Math.max(0, optVol * bVol));
+      audio.play();
     } else {
       console.error("Звук не найден:", name);
+    }
+  }
+
+  pauseSound(name) {
+    if (this.sounds[name]) {
+      this.sounds[name].audio.pause();
     }
   }
 
   // Остановка звука
   stopSound(name) {
     if (this.sounds[name]) {
-      this.sounds[name].pause();
-      this.sounds[name].currentTime = 0;
+      this.sounds[name].audio.pause();
+      this.sounds[name].audio.currentTime = 0;
     }
   }
 }

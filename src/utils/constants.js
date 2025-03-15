@@ -43,10 +43,17 @@ export const SOURCE_IMAGE = [
   },
 ];
 
+export const TYPE_SOUND = {
+  MUSIC: "MUSIC",
+  EFFECT: "EFFECT",
+  INTERFACE: "INTERFACE",
+};
+
 export const SOURCE_SOUND = [
   {
     key: "main_theme",
     path: "./src/sound/main_theme.wav",
-    isMusic: true,
+    type: TYPE_SOUND.MUSIC,
+    baseVolume: 0.2,
   },
 ];
