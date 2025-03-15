@@ -1,3 +1,4 @@
+import { Options } from "../option.js";
 import { Button } from "../utils/button.js";
 import { checkAds, showAds } from "../adsManager.js";
 import { assetManager } from "../assetManager.js";
@@ -44,8 +45,10 @@ export class Game {
       (Math.min(this.extWidth, this.extHeight) * 0.05) / this.scale;
     this.borderRenderTouch = 2;
 
-    this.imageAssets = new assetManager(); // набор изображений
-    this.soundAssets = new soundManager(); // набор звуков
+    this.options = new Options(bridge);
+
+    this.imageAssets = new assetManager(this.options); // набор изображений
+    this.soundAssets = new soundManager(this.options); // набор звуков
     this.data = new Data(bridge); // структура данных
 
     this.screens = {};

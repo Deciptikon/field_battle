@@ -1,9 +1,9 @@
 export class Animation {
-  constructor(option) {
+  constructor(params) {
     this.anima = [];
-    this.pos = option.pos;
+    this.pos = params.pos;
 
-    this.speed = option.speed;
+    this.speed = params.speed;
   }
 
   fromSequention(seq, w, h, kx, ky, x0 = 0, y0 = 0) {
@@ -85,7 +85,8 @@ export function cropImage(image, x, y, width, height) {
 }
 
 export class assetManager {
-  constructor() {
+  constructor(options) {
+    this.options = options;
     this.obj = {};
   }
 
