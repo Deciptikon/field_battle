@@ -6,5 +6,6 @@ export const SOURCE_SOUND = [
     path: "./src/sound/main_theme.wav",
     type: TYPE_SOUND.MUSIC,
     baseVolume: 0.2,
+    loop: true,
   },
 ];

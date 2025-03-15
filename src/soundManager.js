@@ -5,7 +5,13 @@ export class soundManager {
   }
 
   loadFromStruct(struct, callback = null) {
-    this.addSound(struct.key, struct.path, struct.type, struct.baseVolume)
+    this.addSound(
+      struct.key,
+      struct.path,
+      struct.type,
+      struct.baseVolume,
+      struct.loop
+    )
       .then((message) => {
         console.log(message);
         if (callback !== null) callback();
@@ -16,7 +22,7 @@ export class soundManager {
   }
 
   // Добавление звука с промисом
-  addSound(name, url, type = 0, baseVolume = 1.0) {
+  addSound(name, url, type = 0, baseVolume = 1.0, loop = false) {
     return new Promise((resolve, reject) => {
       const audio = new Audio(url);
 
@@ -26,6 +32,7 @@ export class soundManager {
           audio: audio,
           type: type,
           baseVolume: baseVolume,
+          loop: loop,
         };
         resolve(`Звук "${name}" успешно загружен.`);
       });
@@ -41,7 +48,7 @@ export class soundManager {
   }
 
   // Воспроизведение звука
-  playSound(name, volume = null) {
+  playSound(name, volume = null, loop = false) {
     if (this.sounds[name]) {
       const optVol =
         volume === null
@@ -51,6 +58,7 @@ export class soundManager {
       const bVol = this.sounds[name].baseVolume;
 
       audio.volume = Math.min(1, Math.max(0, optVol * bVol));
+      if (loop || this.sounds[name].loop) audio.loop = true;
       audio.play();
     } else {
       console.error("Звук не найден:", name);

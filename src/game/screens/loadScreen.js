@@ -1,5 +1,6 @@
 import { SOURCE_SOUND } from "../../sound/SOURCE_SOUND.js";
 import { SOURCE_IMAGE } from "../../img/SOURCE_IMAGE.js";
+import { A, RGB } from "../../utils/utils.js";
 import { Button } from "../../utils/button.js";
 
 export class loadScreen {
@@ -33,8 +34,9 @@ export class loadScreen {
     this.loaded = false;
 
     this.next = false;
-    const wbtt = 500;
-    const hbtt = 200;
+    const wbtt = this.w;
+    const hbtt = this.h;
+
     this.nextBtt = new Button(
       function () {
         console.log(`next screen`);
@@ -45,6 +47,8 @@ export class loadScreen {
         y: (this.h - hbtt) / 2,
         w: wbtt,
         h: hbtt,
+        rgb: RGB(200, 0, 200),
+        a: A(0.2, 0.1, 0.0),
       }
     );
 
