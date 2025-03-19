@@ -1,5 +1,5 @@
 import { STATE_BUTTON } from "./constants.js";
-import { drawRect, rgb2String } from "./utils.js";
+import { drawRect, rgb2String, fontFromStruct } from "./utils.js";
 
 export class Button {
   constructor(callback, options) {
@@ -17,6 +17,13 @@ export class Button {
     this.a[STATE_BUTTON.DOWN] = 0.7;
     this.a[STATE_BUTTON.UP] = 0.4;
     if (options?.a) this.a = options?.a;
+
+    if (options?.text) {
+      this.text = options.text;
+    } else {
+      this.text = null;
+    }
+    console.log(this.text);
 
     this.isVisible = true;
     this.isAction = true;
@@ -62,6 +69,20 @@ export class Button {
       this.h,
       rgb2String(this.rgb, this.a[this.state])
     );
+    if (this.text !== null) {
+      console.log(this.text.text);
+      ctx.fillStyle = this.text.fillStyle;
+      ctx.font = fontFromStruct(this.text);
+
+      const tm = ctx.measureText(this.text.text);
+      console.log(this.text.text);
+      console.log(tm);
+      ctx.fillText(
+        this.text.text,
+        this.x + (this.w - tm.width) / 2,
+        this.y + (this.h - 0) / 2
+      );
+    }
     if (this.state === STATE_BUTTON.NONE) {
       //drawRect(ctx, this.x, this.y, this.w, this.h, rgb2String(this.rgb, this.a[STATE_BUTTON.NONE]));
     } else if (this.state === STATE_BUTTON.DOWN) {

@@ -49,6 +49,14 @@ export class loadScreen {
         h: hbtt,
         rgb: RGB(200, 0, 200),
         a: A(0.2, 0.1, 0.0),
+        text: {
+          fillStyle: "#FFFFFF",
+          font: "Arial",
+          fontSize: 70,
+          isItalic: false,
+          isBold: true,
+          text: "Нажмите что бы продолжить",
+        },
       }
     );
 

@@ -26,3 +26,11 @@ export function A(NONE = 1.0, DOWN = 0.7, UP = 0.4) {
   a[STATE_BUTTON.UP] = UP;
   return a;
 }
+
+export function fontFromStruct(struct) {
+  let font = `${struct.fontSize}px ${struct.font}`;
+  if (struct.isBold) font = `bold ${font}`;
+  if (struct.isItalic) font = `italic ${font}`;
+
+  return font;
+}
