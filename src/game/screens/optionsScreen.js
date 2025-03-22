@@ -53,7 +53,7 @@ export class optionsScreen {
     this.background = this.imageAssets.get("options_background");
   }
 
-  update(touch) {
+  update(touch, stateApp) {
     //this.imageAssets.get("test_anima")?.update();
 
     if (!this.soundPlay) {

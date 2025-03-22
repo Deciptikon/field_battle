@@ -1,7 +1,10 @@
+import { STATE_APP } from "./utils/constants.js";
+
 export class soundManager {
   constructor(options) {
     this.sounds = {};
     this.options = options;
+    this.stateApp = STATE_APP.PLAY;
   }
 
   loadFromStruct(struct, callback = null) {
@@ -45,6 +48,29 @@ export class soundManager {
       // Начинаем загрузку
       audio.load();
     });
+  }
+
+  setStateApp(stateApp) {
+    if (stateApp === this.stateApp) {
+      return;
+    }
+
+    if (stateApp === STATE_APP.PAUSE && this.stateApp === STATE_APP.PLAY) {
+      // нужно запаузить всю музыку
+      for (let name in this.sounds) {
+        this.pauseSound(name);
+      }
+    }
+    if (stateApp === STATE_APP.PLAY && this.stateApp === STATE_APP.PAUSE) {
+      // нужно стартануть всю музыку которая недоиграла (audio.currentTime !== 0)
+      for (let name in this.sounds) {
+        if (this.sounds[name].audio.currentTime > 0) {
+          this.sounds[name].audio.play();
+        }
+      }
+    }
+
+    this.stateApp = stateApp;
   }
 
   // Воспроизведение звука

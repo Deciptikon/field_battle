@@ -70,13 +70,13 @@ export class Button {
       rgb2String(this.rgb, this.a[this.state])
     );
     if (this.text !== null) {
-      console.log(this.text.text);
+      //console.log(this.text.text);
       ctx.fillStyle = this.text.fillStyle;
       ctx.font = fontFromStruct(this.text);
 
       const tm = ctx.measureText(this.text.text);
-      console.log(this.text.text);
-      console.log(tm);
+      //console.log(this.text.text);
+      //console.log(tm);
       ctx.fillText(
         this.text.text,
         this.x + (this.w - tm.width) / 2,

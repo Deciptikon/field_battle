@@ -17,6 +17,16 @@ export const STATE_BUTTON = {
   UP: "up",
 };
 
+export const STATE_APP = {
+  PLAY: "PLAY",
+  PAUSE: "PAUSE",
+};
+
+export const STATE_BATTLE = {
+  PLAY: "PLAY",
+  PAUSE: "PAUSE",
+};
+
 export const TYPE_SOUND = {
   MUSIC: "MUSIC",
   EFFECT: "EFFECT",

@@ -67,7 +67,7 @@ export class loadScreen {
     });
   }
 
-  update(touch) {
+  update(touch, stateApp) {
     if (this.loaded) {
       if (this.progressLoadImg < SOURCE_IMAGE.length) {
         this.loaded = false;

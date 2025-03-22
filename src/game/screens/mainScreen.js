@@ -52,7 +52,7 @@ export class mainScreen {
     this.background = this.imageAssets.get("menu_background");
   }
 
-  update(touch) {
+  update(touch, stateApp) {
     //this.imageAssets.get("test_anima")?.update();
 
     if (!this.soundPlay) {

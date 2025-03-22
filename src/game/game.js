@@ -4,7 +4,7 @@ import { checkAds, showAds } from "../adsManager.js";
 import { assetManager } from "../assetManager.js";
 import { soundManager } from "../soundManager.js";
 import { Data } from "./data/data.js";
-import { baseScreen } from "./screens/baseScreen.js";
+import { STATE_APP } from "../utils/constants.js";
 import { loadScreen } from "./screens/loadScreen.js";
 import { mainScreen } from "./screens/mainScreen.js";
 import { optionsScreen } from "./screens/optionsScreen.js";
@@ -55,10 +55,7 @@ export class Game {
     this.screens = {};
     this.currentScreen = null;
 
-    // каллбэк для переключения экранов
-    const toScreen = (key) => {
-      if (this.screens[key]) this.currentScreen = this.screens[key];
-    };
+    this.stateGame = STATE_APP.PLAY;
 
     const params = {
       x: this.x,
@@ -197,7 +194,11 @@ export class Game {
     this.renderToExternal(); // Отрисовываем на внешнем контексте
   }
 
-  update(touch, deltaTime) {
+  setStateApp(stateApp) {
+    this.soundAssets.setStateApp(stateApp);
+  }
+
+  update(touch, deltaTime, stateApp) {
     this.deltaTime = deltaTime;
     if (touch === null) {
       this.touch = null;
@@ -208,7 +209,11 @@ export class Game {
       };
     }
 
-    this.currentScreen.update(this.touch);
+    //console.log(stateApp);
+
+    if (stateApp === STATE_APP.PLAY) {
+      this.currentScreen.update(this.touch, stateApp);
+    }
 
     //обновление всех компонентов
     //this.btt1.update(this.touch);

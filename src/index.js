@@ -9,6 +9,7 @@ import {
   BASE_WIDTH,
   BASE_HEIGHT,
   BASE_FPS,
+  STATE_APP,
 } from "./utils/constants.js";
 import { input } from "./InputManager.js";
 import { Animation, loadImage, cropImage } from "./assetManager.js";
@@ -26,11 +27,24 @@ let deltaTime = 0; // Время, прошедшее с последнего к�
 
 let platform = null; // тип платформы на которой запущен код
 
+let stateApp = STATE_APP.PLAY;
+
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 if (!ctx) {
   throw new Error("Could not get 2D context");
 }
+
+document.addEventListener("visibilitychange", function () {
+  if (document.hidden) {
+    console.log("Вкладка скрыта");
+    stateApp = STATE_APP.PAUSE;
+  } else {
+    console.log("Вкладка активна");
+    stateApp = STATE_APP.PLAY;
+  }
+  game.setStateApp(stateApp);
+});
 
 //---------------------------------------------
 const anim = new Animation({
@@ -104,7 +118,7 @@ function loop(currentTime) {
     lastTime = currentTime - (deltaTime % frameTime); // Корректируем lastTime
 
     // Обновляем игру
-    game.update(input.getTouch(), deltaTime / 1000);
+    game.update(input.getTouch(), deltaTime / 1000, stateApp);
     anim.update();
 
     // Отрисовываем кадр
