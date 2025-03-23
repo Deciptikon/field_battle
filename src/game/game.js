@@ -62,6 +62,7 @@ export class Game {
       y: this.y,
       w: this.extWidth / this.scale,
       h: this.extHeight / this.scale,
+      bridge: bridge,
     };
 
     this.screens.loadScreen = new loadScreen(
@@ -185,11 +186,8 @@ export class Game {
     ctx.restore();
   }
 
-  // Метод для обновления и отрисовки
   render() {
     this.drawGame(this.intCtx); // Рисуем на внутреннем контексте
-    //this.btt1.render(this.intCtx);
-    //this.btt2.render(this.intCtx);
     this.drawTouch(this.intCtx, this.radiusRenderTouch);
     this.renderToExternal(); // Отрисовываем на внешнем контексте
   }

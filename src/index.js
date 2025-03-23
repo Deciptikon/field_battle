@@ -12,7 +12,7 @@ import {
   STATE_APP,
 } from "./utils/constants.js";
 import { input } from "./InputManager.js";
-import { Animation, loadImage, cropImage } from "./assetManager.js";
+import { Animation, loadImage } from "./assetManager.js";
 import { Game } from "./game/game.js";
 import { vkBridge, initVKBridge } from "./bridge.js";
 

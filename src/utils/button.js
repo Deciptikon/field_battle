@@ -23,7 +23,7 @@ export class Button {
     } else {
       this.text = null;
     }
-    console.log(this.text);
+    //console.log(this.text);
 
     this.isVisible = true;
     this.isAction = true;

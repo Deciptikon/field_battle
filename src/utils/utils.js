@@ -34,3 +34,17 @@ export function fontFromStruct(struct) {
 
   return font;
 }
+
+export function obj2str(obj) {
+  return JSON.stringify(obj);
+}
+
+export function str2obj(str) {
+  let obj = null;
+  try {
+    obj = JSON.parse(str);
+    return obj;
+  } catch {
+    return null;
+  }
+}

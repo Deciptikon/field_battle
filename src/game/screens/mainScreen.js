@@ -1,6 +1,8 @@
 import { isEmpty } from "../../utils/utils.js";
 import { Button } from "../../utils/button.js";
 
+import { setData, getData } from "../../saveLoadManager.js";
+
 export class mainScreen {
   constructor(imageAssets, soundAssets, model, options, params, toScreen) {
     //
@@ -12,6 +14,8 @@ export class mainScreen {
     this.w = params.w;
     this.h = params.h;
 
+    this.bridge = params.bridge;
+
     this.background = null;
     this.imageAssets = imageAssets;
     this.soundAssets = soundAssets;
@@ -22,7 +26,14 @@ export class mainScreen {
     this.listObjects.push(
       new Button(
         function () {
-          console.log(`to battle`);
+          console.log(`Читаем данные ...`);
+          setData()
+            .then((result) => {
+              console.log(`result = ${result}`);
+            })
+            .catch(() => {
+              //
+            });
         },
         {
           x: 500,
@@ -50,6 +61,19 @@ export class mainScreen {
 
   init() {
     this.background = this.imageAssets.get("menu_background");
+
+    //this.listObjects.forEach((obj) => {
+    //obj.init();
+    //});
+    const key = "test_key_from_init";
+    console.log(`запрос данных`);
+    getData([key], this.bridge)
+      .then((data) => {
+        console.log(`getData = ${data}`);
+      })
+      .catch((err) => {
+        //
+      });
   }
 
   update(touch, stateApp) {
