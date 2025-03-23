@@ -27,7 +27,7 @@ export class mainScreen {
       new Button(
         function () {
           console.log(`Читаем данные ...`);
-          setData()
+          setData("test_key_from_init", "--00--00--==--00--00--", this.bridge)
             .then((result) => {
               console.log(`result = ${result}`);
             })
