@@ -29,6 +29,7 @@ export class mainScreen {
           console.log(`записываем данные ...`);
           setData("test_key_from_init", "--00--00--==--00--00--", this.bridge)
             .then((result) => {
+              console.log(result);
               console.log(`result = ${result}`);
             })
             .catch(() => {
