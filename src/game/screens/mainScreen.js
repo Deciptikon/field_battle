@@ -70,7 +70,8 @@ export class mainScreen {
     console.log(`запрос данных`);
     getData([key], this.bridge)
       .then((data) => {
-        console.log(`getData = ${data}`);
+        console.log(data);
+        console.log(`getData = ${data[0]}`);
       })
       .catch((err) => {
         //
