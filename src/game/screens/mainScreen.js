@@ -27,13 +27,13 @@ export class mainScreen {
       new Button(
         function () {
           console.log(`записываем данные ...`);
-          setData("test_key_from_init", "--00--00--==--00--00--", this.bridge)
+          setData("test_key_from_init", "00--00--==--00--00", this.bridge)
             .then((result) => {
               console.log(result);
               console.log(`result = ${result}`);
             })
-            .catch(() => {
-              //
+            .catch((err) => {
+              console.log(err);
             });
         },
         {
@@ -71,7 +71,7 @@ export class mainScreen {
     getData([key], this.bridge)
       .then((data) => {
         console.log(data);
-        console.log(`getData = ${data[0]}`);
+        console.log(`getData = ${data[key]}`);
       })
       .catch((err) => {
         //
