@@ -1,7 +1,7 @@
 import { isEmpty } from "../../utils/utils.js";
 import { Button } from "../../utils/button.js";
 
-import { setData, getData } from "../../saveLoadManager.js";
+import { setData, getData, getKeys } from "../../saveLoadManager.js";
 
 export class mainScreen {
   constructor(imageAssets, soundAssets, model, options, params, toScreen) {
@@ -26,8 +26,17 @@ export class mainScreen {
     this.listObjects.push(
       new Button(
         function () {
-          console.log(`записываем данные ...`);
+          console.log(`читаем все ключи ...`);
 
+          getKeys(0, 20, params.bridge)
+            .then((result) => {
+              console.log(result);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+
+          console.log(`записываем данные ...`);
           setData("test_key_from_init", "00--00--==--00--00", params.bridge)
             .then((result) => {
               console.log(result);
