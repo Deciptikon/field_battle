@@ -52,7 +52,7 @@ export function setData(key, value, bridge) {
       })
       .then((response) => {
         console.log(response);
-        resolve(response.data.result);
+        resolve(response.result);
       })
       .catch((error) => {
         console.error("Ошибка при сохранении:", error);
