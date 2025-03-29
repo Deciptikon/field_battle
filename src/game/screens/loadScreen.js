@@ -90,13 +90,15 @@ export class loadScreen {
             console.log(`this.progressLoadSnd = ${this.progressLoadSnd}`);
           }
         );
-      } else {
-        console.log(`Всё загружено ....`);
-        // значит все картинки загружены.
+      } else if (this.options.getStateLoaded() < 1) {
+        // все картинки загружены.
         // все звуки загружены.
         // синхронизируем данные из облака/vk.storage,
-        // доделываем приготовления и переходим на следующий экран через каллбек
-        // if (this.callback !== null) this.callback();
+        if (!this.options?.isLoad) this.options.loadOptions();
+        // доделываем приготовления и переходим на следующий экран
+      } else {
+        console.log(`Всё загружено ....`);
+        this.loaded = true;
         if (!this.next) {
           this.next = true;
         }
