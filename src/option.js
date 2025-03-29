@@ -8,6 +8,7 @@ export class Options {
 
     //console.log(OPTIONS_KEYS);
 
+    //громкости разных категорий звуков
     this[OPTIONS_KEYS.VOLUME_SOUND] = {};
     //значения по умолчанию
     this[OPTIONS_KEYS.VOLUME_SOUND][TYPE_SOUND.MUSIC] = 1.0;
@@ -64,8 +65,8 @@ export class Options {
         const obj = str2obj(data);
         if (obj !== null && data !== "{}") {
           this[key] = obj;
-          this.loaded[key] = true;
         }
+        this.loaded[key] = true;
       })
       .catch((err) => {
         console.error(err);
