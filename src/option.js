@@ -1,19 +1,10 @@
-import { TYPE_SOUND, OPTIONS_KEYS } from "./utils/constants.js";
-import { str2obj, obj2str } from "./utils/utils.js";
+import { OPTIONS } from "./utils/config.js";
+import { str2obj, obj2str, isToday, isYesterday } from "./utils/utils.js";
 import { getData, setData } from "./saveLoadManager.js";
 
 export class Options {
   constructor(bridge) {
     this.bridge = bridge;
-
-    //console.log(OPTIONS_KEYS);
-
-    //громкости разных категорий звуков
-    this[OPTIONS_KEYS.VOLUME_SOUND] = {};
-    //значения по умолчанию
-    this[OPTIONS_KEYS.VOLUME_SOUND][TYPE_SOUND.MUSIC] = 1.0;
-    this[OPTIONS_KEYS.VOLUME_SOUND][TYPE_SOUND.EFFECT] = 1.0;
-    this[OPTIONS_KEYS.VOLUME_SOUND][TYPE_SOUND.INTERFACE] = 1.0;
 
     //переменные для обновления
     this.needSave = {};
@@ -23,38 +14,68 @@ export class Options {
     this.loaded = {};
 
     //заполняем ключи
-    for (let key in OPTIONS_KEYS) {
+    for (let key in OPTIONS) {
+      this[key] = OPTIONS[key];
       this.needSave[key] = false;
       this.loaded[key] = false;
     }
   }
 
   getVolumeSound(TYPE_SOUND) {
-    return this[OPTIONS_KEYS.VOLUME_SOUND][TYPE_SOUND];
+    return this["VOLUME_SOUND"][TYPE_SOUND];
   }
 
   setVolumeSound(TYPE_SOUND, vol) {
-    const key = OPTIONS_KEYS.VOLUME_SOUND;
+    const key = "VOLUME_SOUND";
     this[key][TYPE_SOUND] = Math.min(1, Math.max(0, vol));
     this.needSave[key] = true;
   }
 
   loadVolumeSound() {
-    this.load(OPTIONS_KEYS.VOLUME_SOUND);
+    this.load("VOLUME_SOUND");
   }
 
   saveVolumeSound() {
-    this.save(OPTIONS_KEYS.VOLUME_SOUND);
+    this.save("VOLUME_SOUND");
   }
 
   getStateLoaded() {
     let p = 0;
     let q = 0;
-    for (let key in OPTIONS_KEYS) {
+    for (let key in OPTIONS) {
       q++;
       if (this.loaded[key]) p++;
     }
     return p / q;
+  }
+
+  updateLoginStats() {
+    const key = "LOGIN_STATS";
+    if (this[key].LAST_TIME === null) {
+      // первый вход
+      this[key].LAST_TIME = new Date();
+      this[key].DAY_SERIES = 1;
+      this[key].MAX_DAY_SERIES = 1;
+      this.needSave[key] = true;
+    } else {
+      if (isToday(this[key].LAST_TIME)) {
+        // если последний вход был сегодня, то ничего не делаем...
+      } else if (isYesterday(this[key].LAST_TIME)) {
+        // если последний вход был вчера
+        this[key].LAST_TIME = new Date();
+        this[key].DAY_SERIES = Number(this[key].DAY_SERIES) + 1;
+        this.needSave[key] = true;
+      } else {
+        this[key].LAST_TIME = new Date();
+        this[key].DAY_SERIES = 1;
+        this.needSave[key] = true;
+      }
+    }
+
+    // обновляем максимум
+    if (Number(this[key].DAY_SERIES) > Number(this[key].MAX_DAY_SERIES)) {
+      this[key].MAX_DAY_SERIES = Number(this[key].DAY_SERIES);
+    }
   }
 
   load(key) {
@@ -81,7 +102,10 @@ export class Options {
         this.needSave[key] = false;
       })
       .catch((err) => {
+        console.log("Ошибка сохранения данных");
         console.error(err);
+        console.log("Будет произведена повторная попытка через 5 секунд");
+        setTimeout(() => this.save(key), 5000);
       });
   }
 
@@ -89,20 +113,20 @@ export class Options {
     console.log("loadOptions()");
     this.isLoad = true;
     // загрузка из вк хранилища
-    for (let key in OPTIONS_KEYS) {
+    for (let key in OPTIONS) {
       this.load(key);
     }
   }
 
   saveOptions() {
     // сохранение в вк хранилище
-    for (let key in OPTIONS_KEYS) {
+    for (let key in OPTIONS) {
       this.save(key);
     }
   }
 
-  updateOptions() {
-    for (let key in OPTIONS_KEYS) {
+  resaveOptions() {
+    for (let key in OPTIONS) {
       if (this.needSave[key]) {
         this.save(key);
       }

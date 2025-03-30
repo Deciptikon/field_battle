@@ -32,8 +32,3 @@ export const TYPE_SOUND = {
   EFFECT: "EFFECT",
   INTERFACE: "INTERFACE",
 };
-
-export const OPTIONS_KEYS = {
-  VOLUME_SOUND: "VOLUME_SOUND",
-  TEST_KEY: "TEST_KEY",
-};

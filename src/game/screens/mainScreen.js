@@ -35,16 +35,6 @@ export class mainScreen {
             .catch((err) => {
               console.log(err);
             });
-
-          console.log(`записываем данные ...`);
-          setData("test_key_from_init", "00--00--==--00--00", params.bridge)
-            .then((result) => {
-              console.log(result);
-              console.log(`result = ${result}`);
-            })
-            .catch((err) => {
-              console.log(err);
-            });
         },
         {
           x: 500,
@@ -73,19 +63,14 @@ export class mainScreen {
   init() {
     this.background = this.imageAssets.get("menu_background");
 
-    //this.listObjects.forEach((obj) => {
-    //obj.init();
-    //});
-    const key = "test_key_from_init";
-    console.log(`запрос данных`);
-    getData([key], this.bridge)
-      .then((data) => {
-        console.log(data);
-        console.log(`getData = ${data[key]}`);
-      })
-      .catch((err) => {
-        //
+    if (!isEmpty(this.listObjects)) {
+      this.listObjects.forEach((obj) => {
+        obj?.init();
       });
+    }
+
+    this.options.updateLoginStats();
+    this.options.resaveOptions();
   }
 
   update(touch, stateApp) {

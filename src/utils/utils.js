@@ -48,3 +48,27 @@ export function str2obj(str) {
     return null;
   }
 }
+
+export function isYesterday(date) {
+  const today = new Date();
+  const yesterday = new Date(today);
+  yesterday.setDate(today.getDate() - 1); // Вчерашняя дата
+
+  // Обнуляем часы, минуты, секунды, миллисекунды
+  const inputDate = new Date(date);
+  inputDate.setHours(0, 0, 0, 0);
+  today.setHours(0, 0, 0, 0);
+  yesterday.setHours(0, 0, 0, 0);
+
+  return inputDate.getTime() === yesterday.getTime();
+}
+
+export function isToday(date) {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // Обнуляем время
+
+  const inputDate = new Date(date);
+  inputDate.setHours(0, 0, 0, 0);
+
+  return inputDate.getTime() === today.getTime();
+}

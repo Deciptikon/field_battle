@@ -137,6 +137,25 @@ export class loadScreen {
     ctx.restore();
   }
 
+  drawLoadOption(ctx) {
+    const w = this.w * 0.2;
+    const h = this.h * 0.05;
+    const x = (this.w - w) / 2;
+    const y = (this.h - h) / 2;
+    const p = this.options.getStateLoaded();
+    if (p > 0) {
+      ctx.save();
+
+      ctx.fillStyle = "white";
+      ctx.font = "50px Arial";
+      const txt = `Синхронизация ${Math.floor(p * 100)}%`;
+      const tw = ctx.measureText(txt).width;
+      ctx.fillText(txt, (this.w - tw) / 2, y + 4 * h);
+
+      ctx.restore();
+    }
+  }
+
   render(ctx) {
     //console.log("loadScreen.render");
     ctx.save();
@@ -161,6 +180,7 @@ export class loadScreen {
         this.nextBtt.render(ctx);
       } else {
         this.drawLoadBar(ctx);
+        this.drawLoadOption(ctx);
       }
     }
 
