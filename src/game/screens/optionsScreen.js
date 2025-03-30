@@ -51,6 +51,12 @@ export class optionsScreen {
 
   init() {
     this.background = this.imageAssets.get("options_background");
+
+    if (!isEmpty(this.listObjects)) {
+      this.listObjects.forEach((obj) => {
+        obj?.init();
+      });
+    }
   }
 
   update(touch, stateApp) {

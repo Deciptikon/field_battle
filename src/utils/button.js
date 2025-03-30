@@ -32,6 +32,11 @@ export class Button {
     this.count = 0;
   }
 
+  init() {
+    this.state = STATE_BUTTON.NONE;
+    this.count = 0;
+  }
+
   update(touch) {
     if (touch !== null) {
       const px = touch.x - this.x;

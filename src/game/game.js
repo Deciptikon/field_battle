@@ -57,6 +57,13 @@ export class Game {
 
     this.stateGame = STATE_APP.PLAY;
 
+    const toScreen = (key) => {
+      if (this.screens[key]) {
+        this.screens[key].init();
+        this.currentScreen = this.screens[key];
+      }
+    };
+
     const params = {
       x: this.x,
       y: this.y,
@@ -71,9 +78,7 @@ export class Game {
       this.data,
       this.options,
       params,
-      (key) => {
-        if (this.screens[key]) this.currentScreen = this.screens[key];
-      },
+      toScreen,
       () => {
         console.log("next screen");
         this.screens.mainScreen.init();
@@ -87,9 +92,7 @@ export class Game {
       this.data,
       this.options,
       params,
-      (key) => {
-        if (this.screens[key]) this.currentScreen = this.screens[key];
-      }
+      toScreen
     );
     this.screens.optionsScreen = new optionsScreen(
       this.imageAssets,
@@ -97,9 +100,7 @@ export class Game {
       this.data,
       this.options,
       params,
-      (key) => {
-        if (this.screens[key]) this.currentScreen = this.screens[key];
-      }
+      toScreen
     );
 
     this.currentScreen = this.screens.loadScreen;

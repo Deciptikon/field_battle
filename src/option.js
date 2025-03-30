@@ -92,6 +92,7 @@ export class Options {
       .catch((err) => {
         console.error(err);
       });
+    this.loaded[key] = true;
   }
 
   save(key) {
