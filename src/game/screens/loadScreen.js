@@ -24,6 +24,9 @@ export class loadScreen {
     this.toScreen = toScreen;
 
     this.background = null;
+    this.animaCount = 0;
+    this.increment = 1;
+
     this.imageAssets = imageAssets;
     this.soundAssets = soundAssets;
 
@@ -160,28 +163,18 @@ export class loadScreen {
     //console.log("loadScreen.render");
     ctx.save();
 
-    ctx.fillStyle = "green";
+    ctx.fillStyle = `rgb(
+    ${this.animaCount + 100}, 
+    50, 
+    ${200 - this.animaCount}
+    )`;
     ctx.fillRect(0, 0, this.w, this.h);
 
-    if (this.imageAssets.get("loader_background") !== null) {
-      if (this.background === null)
-        this.background = this.imageAssets.get("loader_background");
-
-      const k = this.h / this.background.height;
-      ctx.drawImage(
-        this.imageAssets.get("loader_background"),
-        (this.w - this.background.width * k) / 2,
-        0,
-        this.background.width * k,
-        this.background.height * k
-      );
-
-      if (this.next) {
-        this.nextBtt.render(ctx);
-      } else {
-        this.drawLoadBar(ctx);
-        this.drawLoadOption(ctx);
-      }
+    if (this.next) {
+      this.nextBtt.render(ctx);
+    } else {
+      this.drawLoadBar(ctx);
+      this.drawLoadOption(ctx);
     }
 
     //this.imageAssets.get("test_anima")?.draw(ctx, 0, 0);
@@ -189,5 +182,9 @@ export class loadScreen {
     //ctx.drawImage(fr, 0, 0, fr.width, fr.height);
 
     ctx.restore();
+
+    this.animaCount += this.increment;
+    if (this.animaCount > 120) this.increment = -1;
+    if (this.animaCount < 1) this.increment = 1;
   }
 }

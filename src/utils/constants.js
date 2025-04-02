@@ -1,9 +1,9 @@
 export const PI = 3.14159;
 export const APP_NAME = "Поле Битвы";
 export const COLORS = {
-  RED: "#FF0000",
-  GREEN: "#00FF00",
-  BLUE: "#0000FF",
+  RED: "rgb(255, 50, 50)",
+  GREEN: "rgb(50, 255, 50)",
+  BLUE: "rgb(50, 50, 255)",
 };
 
 export const BASE_HEIGHT = 1000;
@@ -31,4 +31,10 @@ export const TYPE_SOUND = {
   MUSIC: "MUSIC",
   EFFECT: "EFFECT",
   INTERFACE: "INTERFACE",
+};
+
+export const TYPE_ANIMA_COLOR = {
+  LINEAR: "LINEAR",
+  CIRCLE: "CIRCLE",
+  PINGPONG: "PINGPONG",
 };

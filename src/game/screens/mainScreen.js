@@ -1,5 +1,8 @@
-import { isEmpty } from "../../utils/utils.js";
+import { isEmpty, RGB, A } from "../../utils/utils.js";
 import { Button } from "../../utils/button.js";
+import { ButtonColored } from "../../utils/buttonColored.js";
+import { ButtonColoredAnimation } from "../../utils/buttonColoredAnimation.js";
+import { STATE_BUTTON } from "../../utils/constants.js";
 
 import { setData, getData, getKeys } from "../../saveLoadManager.js";
 
@@ -24,6 +27,43 @@ export class mainScreen {
 
     this.listObjects = [];
     this.listObjects.push(
+      new ButtonColored(
+        function () {
+          console.log(`читаем все ключи ...`);
+        },
+        {
+          x: 100,
+          y: 200,
+          w: 300,
+          h: 100,
+          rgba: {
+            [STATE_BUTTON.NONE]: {
+              rgb: RGB(200, 0, 0),
+              a: 1.0,
+            },
+            [STATE_BUTTON.DOWN]: {
+              rgb: RGB(150, 50, 50),
+              a: 1.0,
+            },
+            [STATE_BUTTON.UP]: {
+              rgb: RGB(250, 250, 250),
+              a: 1.0,
+            },
+          },
+          text: {
+            fillStyle: "#FFFFFF",
+            font: "Arial",
+            fontSize: 50,
+            isItalic: false,
+            isBold: true,
+            text: "Играть",
+            shiftY: -25,
+          },
+        }
+      )
+    );
+
+    this.listObjects.push(
       new Button(
         function () {
           console.log(`читаем все ключи ...`);
@@ -37,13 +77,25 @@ export class mainScreen {
             });
         },
         {
-          x: 500,
-          y: 200,
+          x: 100,
+          y: 350,
           w: 300,
           h: 100,
+          rgb: RGB(50, 200, 50),
+          //a: A(0.2, 0.1, 0.0),
+          text: {
+            fillStyle: "#FFFFFF",
+            font: "Arial",
+            fontSize: 50,
+            isItalic: false,
+            isBold: true,
+            text: "Играть",
+            shiftY: -25,
+          },
         }
       )
     );
+
     this.listObjects.push(
       new Button(
         function () {
@@ -51,8 +103,24 @@ export class mainScreen {
           toScreen("optionsScreen");
         },
         {
-          x: 500,
-          y: 350,
+          x: 100,
+          y: 500,
+          w: 300,
+          h: 100,
+          rgb: RGB(200, 0, 200),
+          //a: A(0.2, 0.1, 0.0),
+        }
+      )
+    );
+
+    this.listObjects.push(
+      new ButtonColoredAnimation(
+        function () {
+          console.log(`Colored...`);
+        },
+        {
+          x: 100,
+          y: 650,
           w: 300,
           h: 100,
         }

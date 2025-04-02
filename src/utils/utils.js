@@ -27,6 +27,23 @@ export function A(NONE = 1.0, DOWN = 0.7, UP = 0.4) {
   return a;
 }
 
+function lin(v1, v2, k) {
+  return v1 * (1.0 - k) + v2 * k;
+}
+
+export function summRGBA(firstRGBA, secondRGBA, k) {
+  const color = {
+    rgb: {
+      r: lin(firstRGBA.rgb.r, secondRGBA.rgb.r, k),
+      g: lin(firstRGBA.rgb.g, secondRGBA.rgb.g, k),
+      b: lin(firstRGBA.rgb.b, secondRGBA.rgb.b, k),
+    },
+    a: lin(firstRGBA.a, secondRGBA.a, k),
+  };
+
+  return color;
+}
+
 export function fontFromStruct(struct) {
   let font = `${struct.fontSize}px ${struct.font}`;
   if (struct.isBold) font = `bold ${font}`;

@@ -1,7 +1,8 @@
-import { STATE_BUTTON } from "./constants.js";
+import { STATE_BUTTON, TYPE_ANIMA_COLOR } from "./constants.js";
 import { drawRect, rgb2String, fontFromStruct } from "./utils.js";
+import { AnimaColor } from "./animaColor.js";
 
-export class Button {
+export class ButtonColoredAnimation {
   constructor(callback, options) {
     this.callback = callback;
 
@@ -11,12 +12,51 @@ export class Button {
     this.w = options.w;
     this.h = options.h;
 
-    this.rgb = options?.rgb ? options?.rgb : { r: 0, g: 120, b: 255 };
-    this.a = {};
-    this.a[STATE_BUTTON.NONE] = 1.0;
-    this.a[STATE_BUTTON.DOWN] = 0.7;
-    this.a[STATE_BUTTON.UP] = 0.4;
-    if (options?.a) this.a = options?.a;
+    this.rgba = {};
+    this.rgba[STATE_BUTTON.NONE] = new AnimaColor(
+      [
+        {
+          rgb: { r: 200, g: 50, b: 100 },
+          a: 1.0,
+        },
+        {
+          rgb: { r: 100, g: 50, b: 200 },
+          a: 1.0,
+        },
+      ],
+      [120, 120],
+      TYPE_ANIMA_COLOR.CIRCLE
+    );
+    this.rgba[STATE_BUTTON.DOWN] = new AnimaColor(
+      [
+        {
+          rgb: { r: 150, g: 0, b: 150 },
+          a: 1.0,
+        },
+        {
+          rgb: { r: 50, g: 200, b: 50 },
+          a: 1.0,
+        },
+      ],
+      [120, 120],
+      TYPE_ANIMA_COLOR.PINGPONG
+    );
+    this.rgba[STATE_BUTTON.UP] = new AnimaColor(
+      [
+        {
+          rgb: { r: 255, g: 0, b: 255 },
+          a: 1.0,
+        },
+        {
+          rgb: { r: 120, g: 255, b: 0 },
+          a: 1.0,
+        },
+      ],
+      [12, 12],
+      TYPE_ANIMA_COLOR.CIRCLE
+    );
+
+    if (options?.rgba) this.rgba = options.rgba;
 
     if (options?.text) {
       this.text = options.text;
@@ -61,19 +101,22 @@ export class Button {
       }
     }
 
+    this.rgba[this.state]?.update();
     this.count++;
   }
 
   render(ctx) {
     ctx.save();
+    const color = this.rgba[this.state]?.getColor();
     drawRect(
       ctx,
       this.x,
       this.y,
       this.w,
       this.h,
-      rgb2String(this.rgb, this.a[this.state])
+      rgb2String(color.rgb, color.a)
     );
+
     if (this.text !== null) {
       //console.log(this.text.text);
       ctx.fillStyle = this.text.fillStyle;
@@ -88,6 +131,7 @@ export class Button {
         this.y + (this.h + this.text.fontSize / 2) / 2
       );
     }
+
     if (this.state === STATE_BUTTON.NONE) {
       //drawRect(ctx, this.x, this.y, this.w, this.h, rgb2String(this.rgb, this.a[STATE_BUTTON.NONE]));
     } else if (this.state === STATE_BUTTON.DOWN) {
@@ -101,6 +145,8 @@ export class Button {
         //this.count > anima_up.length
         this.state = STATE_BUTTON.NONE;
         this.count = 0;
+        // callback
+        // this.callback();
       }
     }
     ctx.restore();

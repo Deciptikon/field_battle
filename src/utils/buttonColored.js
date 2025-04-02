@@ -1,7 +1,7 @@
 import { STATE_BUTTON } from "./constants.js";
 import { drawRect, rgb2String, fontFromStruct } from "./utils.js";
 
-export class Button {
+export class ButtonColored {
   constructor(callback, options) {
     this.callback = callback;
 
@@ -11,12 +11,21 @@ export class Button {
     this.w = options.w;
     this.h = options.h;
 
-    this.rgb = options?.rgb ? options?.rgb : { r: 0, g: 120, b: 255 };
-    this.a = {};
-    this.a[STATE_BUTTON.NONE] = 1.0;
-    this.a[STATE_BUTTON.DOWN] = 0.7;
-    this.a[STATE_BUTTON.UP] = 0.4;
-    if (options?.a) this.a = options?.a;
+    this.rgba = {};
+    this.rgba[STATE_BUTTON.NONE] = {
+      rgb: { r: 0, g: 120, b: 255 },
+      a: 1.0,
+    };
+    this.rgba[STATE_BUTTON.DOWN] = {
+      rgb: { r: 0, g: 255, b: 255 },
+      a: 0.7,
+    };
+    this.rgba[STATE_BUTTON.UP] = {
+      rgb: { r: 0, g: 255, b: 120 },
+      a: 0.4,
+    };
+
+    if (options?.rgba) this.rgba = options.rgba;
 
     if (options?.text) {
       this.text = options.text;
@@ -72,8 +81,9 @@ export class Button {
       this.y,
       this.w,
       this.h,
-      rgb2String(this.rgb, this.a[this.state])
+      rgb2String(this.rgba[this.state].rgb, this.rgba[this.state].a)
     );
+
     if (this.text !== null) {
       //console.log(this.text.text);
       ctx.fillStyle = this.text.fillStyle;
@@ -101,6 +111,8 @@ export class Button {
         //this.count > anima_up.length
         this.state = STATE_BUTTON.NONE;
         this.count = 0;
+        // callback
+        // this.callback();
       }
     }
     ctx.restore();

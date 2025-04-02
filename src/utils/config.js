@@ -8,6 +8,17 @@ export const OPTIONS = {
     MAX_DAY_SERIES: 0, //    количество дней подряд
   },
 
+  // статистика просмотренной рекламы
+  ADS_STATS: {
+    COUNT: 0,
+  },
+
+  BATTLE_STATS: {
+    KILLS_COUNT: 0, // количество уничтоженых монстров
+    BATTLE_COUNT: 0, // количество сыгранных боёв
+    LVL_BATTLE: 0, // текущий уровень боёв
+  },
+
   // настройки громкости звука
   VOLUME_SOUND: {
     [TYPE_SOUND.MUSIC]: 1.0, //       громкость музыки
