@@ -12,7 +12,6 @@ import {
   STATE_APP,
 } from "./utils/constants.js";
 import { input } from "./InputManager.js";
-import { Animation, loadImage } from "./assetManager.js";
 import { Game } from "./game/game.js";
 import { vkBridge, initVKBridge } from "./bridge.js";
 
@@ -45,30 +44,6 @@ document.addEventListener("visibilitychange", function () {
   }
   game.setStateApp(stateApp);
 });
-
-//---------------------------------------------
-const anim = new Animation({
-  pos: 0,
-  speed: 0.2,
-});
-
-let image1 = null;
-loadImage("./src/img/seq_1.png")
-  .then((img) => {
-    console.log("Изображение загружено:");
-    image1 = img;
-    anim.fromSequention(img, 128, 128, 5, 1);
-  })
-  .catch((error) => {
-    console.error(error.message);
-  });
-//const img = new Image();
-//img.src = "./src/img/seq_1.png";
-//img.onload = function () {
-//console.log("Загрузил");
-//ctx.drawImage(img, 0, 0, img.width, img.height);
-//};
-//---------------------------------------------
 
 const game = new Game(ctx, vkBridge, {
   width: BASE_WIDTH,
@@ -119,16 +94,8 @@ function loop(currentTime) {
 
     // Обновляем игру
     game.update(input.getTouch(), deltaTime / 1000, stateApp);
-    anim.update();
 
     // Отрисовываем кадр
     game.render();
-    //const fr = anim.getCurrentFrame();
-    //ctx.drawImage(fr, 0, 0, fr.width, fr.height);
-
-    //if (image1 !== null) {
-    //const croppp = cropImage(image1, 0, 0, 128, 128);
-    //ctx.drawImage(croppp, 0, 0, croppp.width, croppp.height);
-    //}
   }
 }

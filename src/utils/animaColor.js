@@ -33,16 +33,21 @@ export class AnimaColor {
         return this.color;
       case TYPE_ANIMA_COLOR.PINGPONG:
         let ti = this.index + this.inc;
-        if (ti >= this.listRGBA.length || ti < 0) ti >= this.index;
+        if (ti >= this.listRGBA.length || ti < 0) ti = this.index;
+
+        const mi = Math.min(this.index, ti);
+        const ma = Math.max(this.index, ti);
+        let nn =
+          this.inc > 0 ? this.listFrames[this.index] : this.listFrames[ti];
         this.color = summRGBA(
-          this.listRGBA[this.index],
-          this.listRGBA[ti],
-          this.count / this.listFrames[this.index]
+          this.listRGBA[mi],
+          this.listRGBA[ma],
+          this.count / nn
         );
         return this.color;
       default:
         let tw = this.index + 1;
-        if (tw >= this.listRGBA.length) tw >= this.index;
+        if (tw >= this.listRGBA.length) tw = this.index;
         this.color = summRGBA(
           this.listRGBA[this.index],
           this.listRGBA[tw],

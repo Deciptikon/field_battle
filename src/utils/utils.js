@@ -89,3 +89,30 @@ export function isToday(date) {
 
   return inputDate.getTime() === today.getTime();
 }
+
+export function loadImage(path) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.src = path;
+
+    img.onload = () => {
+      resolve(img); // Возвращаем загруженное изображение
+    };
+
+    img.onerror = (error) => {
+      reject(new Error(`Ошибка загрузки изображения: ${path}`)); // Возвращаем ошибку
+    };
+  });
+}
+
+export function cropImage(image, x, y, width, height) {
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext("2d");
+  canvas.width = width;
+  canvas.height = height;
+  ctx.drawImage(image, x, y, width, height, 0, 0, width, height);
+
+  const croppedImage = new Image();
+  croppedImage.src = canvas.toDataURL();
+  return croppedImage;
+}

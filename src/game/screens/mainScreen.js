@@ -42,7 +42,7 @@ export class mainScreen {
               a: 1.0,
             },
             [STATE_BUTTON.DOWN]: {
-              rgb: RGB(150, 50, 50),
+              rgb: RGB(100, 0, 0),
               a: 1.0,
             },
             [STATE_BUTTON.UP]: {
@@ -57,7 +57,6 @@ export class mainScreen {
             isItalic: false,
             isBold: true,
             text: "Играть",
-            shiftY: -25,
           },
         }
       )
