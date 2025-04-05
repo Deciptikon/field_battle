@@ -84,7 +84,7 @@ export class Options {
       .then((data) => {
         console.log(`Data loaded! {${key}}`);
         console.log(data);
-        const obj = str2obj(data);
+        const obj = str2obj(data[key]);
         if (obj !== null && data !== "{}") {
           this[key] = obj;
           console.log(obj);
