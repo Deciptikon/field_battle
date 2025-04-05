@@ -82,7 +82,8 @@ export class Options {
     console.log(`load(${key})`);
     getData([key], this.bridge)
       .then((data) => {
-        console.log(`Data loaded! {${key}}: ${data}`);
+        console.log(`Data loaded! {${key}}`);
+        console.log(data);
         const obj = str2obj(data);
         if (obj !== null && data !== "{}") {
           this[key] = obj;
