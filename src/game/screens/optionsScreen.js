@@ -1,5 +1,6 @@
 import { isEmpty } from "../../utils/utils.js";
 import { Button } from "../../utils/button.js";
+import { Label } from "../../utils/label.js";
 import { TYPE_SOUND } from "../../utils/constants.js";
 
 export class optionsScreen {
@@ -25,7 +26,7 @@ export class optionsScreen {
       new Button(
         function () {
           console.log(`Back in MAIN`);
-          this.options.resaveOptions();
+          options.resaveOptions();
           toScreen("mainScreen");
         },
         {
@@ -44,6 +45,25 @@ export class optionsScreen {
           },
         }
       )
+    );
+
+    this.listObjects.push(
+      new Label({
+        x: 500,
+        y: 250,
+        w: 400,
+        h: 100,
+        text: {
+          fillStyle: `rgba(${255}, ${255}, ${255}, ${1.0})`,
+          font: "Arial",
+          fontSize: 50,
+          isItalic: false,
+          isBold: true,
+          text: "Музыка",
+          shiftY: -30,
+        },
+        colorBackground: `rgba(${0}, ${0}, ${0}, ${0.1})`,
+      })
     );
     this.listObjects.push(
       new Button(
@@ -72,6 +92,32 @@ export class optionsScreen {
             text: "-",
             shiftY: -25,
           },
+        }
+      )
+    );
+    this.listObjects.push(
+      new Label(
+        {
+          x: 600,
+          y: 350,
+          w: 200,
+          h: 100,
+          text: {
+            fillStyle: `rgba(${255}, ${255}, ${255}, ${1.0})`,
+            font: "Arial",
+            fontSize: 50,
+            isItalic: false,
+            isBold: true,
+            text: "0",
+            shiftY: -30,
+          },
+          colorBackground: `rgba(${0}, ${0}, ${0}, ${0.1})`,
+        },
+        function () {
+          console.log(`Обновляем лайбел`);
+          const type = TYPE_SOUND.MUSIC;
+          const val = options.getVolumeSound(type);
+          this.text.text = `${Math.floor(val * 100)}%`;
         }
       )
     );
