@@ -82,24 +82,25 @@ export class Options {
     console.log(`load(${key})`);
     getData([key], this.bridge)
       .then((data) => {
-        console.log("Data loaded!");
+        console.log(`Data loaded! ${key}`);
         const obj = str2obj(data);
         if (obj !== null && data !== "{}") {
           this[key] = obj;
+          console.log(obj);
         }
         this.loaded[key] = true;
       })
       .catch((err) => {
         console.error(err);
       });
-    this.loaded[key] = true; ///////////////////////////////////////////////////////
+    //this.loaded[key] = true; ///////////////////////////////////////////////////////
   }
 
   save(key) {
     const val = obj2str(this[key]);
     setData(key, val, this.bridge)
       .then((data) => {
-        console.log("Data saved!");
+        console.log(`Data saved! ${val}`);
         this.needSave[key] = false;
       })
       .catch((err) => {
