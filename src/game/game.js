@@ -1,13 +1,15 @@
-import { Options } from "../option.js";
 import { Button } from "../utils/button.js";
+import { Options } from "../option.js";
 import { checkAds, showAds } from "../adsManager.js";
 import { assetManager } from "../assetManager.js";
 import { soundManager } from "../soundManager.js";
 import { Data } from "./data/data.js";
 import { STATE_APP } from "../utils/constants.js";
+
 import { loadScreen } from "./screens/loadScreen.js";
 import { mainScreen } from "./screens/mainScreen.js";
 import { optionsScreen } from "./screens/optionsScreen.js";
+import { achievementsScreen } from "./screens/achievementsScreen.js";
 
 export class Game {
   constructor(ctx, bridge, options) {
@@ -59,7 +61,7 @@ export class Game {
 
     const toScreen = (key) => {
       if (this.screens[key]) {
-        this.screens[key].init();
+        this.screens[key].restate();
         this.currentScreen = this.screens[key];
       }
     };
@@ -81,8 +83,13 @@ export class Game {
       toScreen,
       () => {
         console.log("next screen");
-        this.screens.mainScreen.init();
-        this.screens.optionsScreen.init();
+        //this.screens.mainScreen.init();
+        //this.screens.optionsScreen.init();
+        for (let name in this.screens) {
+          if (name !== "loadScreen") {
+            this.screens[name]?.init();
+          }
+        }
         this.currentScreen = this.screens.mainScreen;
       }
     );
@@ -95,6 +102,14 @@ export class Game {
       toScreen
     );
     this.screens.optionsScreen = new optionsScreen(
+      this.imageAssets,
+      this.soundAssets,
+      this.data,
+      this.options,
+      params,
+      toScreen
+    );
+    this.screens.achievementsScreen = new achievementsScreen(
       this.imageAssets,
       this.soundAssets,
       this.data,

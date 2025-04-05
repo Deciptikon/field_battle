@@ -26,7 +26,7 @@ export class optionsScreen {
       new Button(
         function () {
           console.log(`Back in MAIN`);
-          options.resaveOptions();
+          //options.resaveOptions();
           toScreen("mainScreen");
         },
         {
@@ -156,6 +156,15 @@ export class optionsScreen {
   init() {
     this.background = this.imageAssets.get("menu_bg_grad");
 
+    if (!isEmpty(this.listObjects)) {
+      this.listObjects.forEach((obj) => {
+        obj?.init();
+      });
+    }
+  }
+
+  // сброс параметров при каждой загрузке экрана
+  restate() {
     if (!isEmpty(this.listObjects)) {
       this.listObjects.forEach((obj) => {
         obj?.init();

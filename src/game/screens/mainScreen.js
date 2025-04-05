@@ -152,6 +152,44 @@ export class mainScreen {
         }
       )
     );
+
+    this.listObjects.push(
+      new ButtonColored(
+        function () {
+          console.log(`Достижения ...`);
+          toScreen("achievementsScreen");
+        },
+        {
+          x: 100,
+          y: 800,
+          w: 300,
+          h: 100,
+          rgba: {
+            [STATE_BUTTON.NONE]: {
+              rgb: RGB(0, 0, 200),
+              a: 1.0,
+            },
+            [STATE_BUTTON.DOWN]: {
+              rgb: RGB(0, 0, 100),
+              a: 1.0,
+            },
+            [STATE_BUTTON.UP]: {
+              rgb: RGB(250, 250, 250),
+              a: 1.0,
+            },
+          },
+          text: {
+            fillStyle: "#FFFFFF",
+            font: "Arial",
+            fontSize: 50,
+            isItalic: false,
+            isBold: true,
+            text: "Достижения",
+            shiftY: -25,
+          },
+        }
+      )
+    );
   }
 
   init() {
@@ -326,6 +364,16 @@ export class mainScreen {
     }
 
     this.options.updateLoginStats();
+    this.options.resaveOptions();
+  }
+
+  // сброс параметров при каждой загрузке экрана
+  restate() {
+    if (!isEmpty(this.listObjects)) {
+      this.listObjects.forEach((obj) => {
+        obj?.init();
+      });
+    }
     this.options.resaveOptions();
   }
 
