@@ -10,6 +10,10 @@ import { loadScreen } from "./screens/loadScreen.js";
 import { mainScreen } from "./screens/mainScreen.js";
 import { optionsScreen } from "./screens/optionsScreen.js";
 import { achievementsScreen } from "./screens/achievementsScreen.js";
+import { aboutScreen } from "./screens/aboutScreen.js";
+import { upgradeScreen } from "./screens/upgradeScreen.js";
+import { dailyScreen } from "./screens/dailyScreen.js";
+import { adsScreen } from "./screens/adsScreen.js";
 
 export class Game {
   constructor(ctx, bridge, options) {
@@ -74,6 +78,17 @@ export class Game {
       bridge: bridge,
     };
 
+    const addScreen = (key, screenClass) => {
+      this.screens[key] = new screenClass(
+        this.imageAssets,
+        this.soundAssets,
+        this.data,
+        this.options,
+        params,
+        toScreen
+      );
+    };
+
     this.screens.loadScreen = new loadScreen(
       this.imageAssets,
       this.soundAssets,
@@ -83,8 +98,6 @@ export class Game {
       toScreen,
       () => {
         console.log("next screen");
-        //this.screens.mainScreen.init();
-        //this.screens.optionsScreen.init();
         for (let name in this.screens) {
           if (name !== "loadScreen") {
             this.screens[name]?.init();
@@ -93,30 +106,13 @@ export class Game {
         this.currentScreen = this.screens.mainScreen;
       }
     );
-    this.screens.mainScreen = new mainScreen(
-      this.imageAssets,
-      this.soundAssets,
-      this.data,
-      this.options,
-      params,
-      toScreen
-    );
-    this.screens.optionsScreen = new optionsScreen(
-      this.imageAssets,
-      this.soundAssets,
-      this.data,
-      this.options,
-      params,
-      toScreen
-    );
-    this.screens.achievementsScreen = new achievementsScreen(
-      this.imageAssets,
-      this.soundAssets,
-      this.data,
-      this.options,
-      params,
-      toScreen
-    );
+    addScreen("mainScreen", mainScreen);
+    addScreen("optionsScreen", optionsScreen);
+    addScreen("achievementsScreen", achievementsScreen);
+    addScreen("aboutScreen", aboutScreen);
+    addScreen("upgradeScreen", upgradeScreen);
+    addScreen("dailyScreen", dailyScreen);
+    addScreen("adsScreen", adsScreen);
 
     this.currentScreen = this.screens.loadScreen;
 

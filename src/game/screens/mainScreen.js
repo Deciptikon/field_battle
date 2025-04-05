@@ -6,6 +6,9 @@ import {
   STATE_BUTTON,
   LEFT_BORDER_FOR_CLOUD_IN_MENU,
   RIGHT_BORDER_FOR_CLOUD_IN_MENU,
+  X_CORD_BTT_IN_MENU,
+  W_BTT_IN_MENU,
+  H_BTT_IN_MENU,
 } from "../../utils/constants.js";
 import { SceneAnimation } from "../../utils/scene_animation/scene_animation.js";
 import { ObjectScene } from "../../utils/scene_animation/objectScene.js";
@@ -40,8 +43,8 @@ export class mainScreen {
           console.log(`читаем все ключи ...`);
         },
         {
-          x: 100,
-          y: 200,
+          x: X_CORD_BTT_IN_MENU,
+          y: 180,
           w: 400,
           h: 125,
           rgba: {
@@ -74,21 +77,13 @@ export class mainScreen {
     this.listObjects.push(
       new Button(
         function () {
-          console.log(`читаем все ключи ...`);
-
-          getKeys(0, 20, params.bridge)
-            .then((result) => {
-              console.log(result);
-            })
-            .catch((err) => {
-              console.log(err);
-            });
+          toScreen("upgradeScreen");
         },
         {
-          x: 100,
+          x: X_CORD_BTT_IN_MENU,
           y: 350,
-          w: 300,
-          h: 100,
+          w: W_BTT_IN_MENU,
+          h: H_BTT_IN_MENU,
           rgb: RGB(50, 200, 50),
           //a: A(0.2, 0.1, 0.0),
           text: {
@@ -111,10 +106,10 @@ export class mainScreen {
           toScreen("optionsScreen");
         },
         {
-          x: 100,
+          x: X_CORD_BTT_IN_MENU,
           y: 500,
-          w: 300,
-          h: 100,
+          w: W_BTT_IN_MENU,
+          h: H_BTT_IN_MENU,
           rgb: RGB(200, 0, 200),
           //a: A(0.2, 0.1, 0.0),
           text: {
@@ -133,13 +128,13 @@ export class mainScreen {
     this.listObjects.push(
       new ButtonColoredAnimation(
         function () {
-          console.log(`Colored...`);
+          toScreen("aboutScreen");
         },
         {
-          x: 100,
+          x: X_CORD_BTT_IN_MENU,
           y: 650,
-          w: 300,
-          h: 100,
+          w: W_BTT_IN_MENU,
+          h: H_BTT_IN_MENU,
           text: {
             fillStyle: "#FFFFFF",
             font: "Arial",
@@ -160,10 +155,10 @@ export class mainScreen {
           toScreen("achievementsScreen");
         },
         {
-          x: 100,
+          x: X_CORD_BTT_IN_MENU,
           y: 800,
-          w: 300,
-          h: 100,
+          w: W_BTT_IN_MENU,
+          h: H_BTT_IN_MENU,
           rgba: {
             [STATE_BUTTON.NONE]: {
               rgb: RGB(0, 0, 200),
