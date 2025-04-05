@@ -1,17 +1,37 @@
 export const SOURCE_IMAGE = [
   {
-    key: "loader_background",
-    path: "./src/img/loader_background.jpeg",
-    isAnimate: false,
-  },
-  {
-    key: "menu_background",
-    path: "./src/img/menu_background.jpeg",
-    isAnimate: false,
-  },
-  {
     key: "options_background",
     path: "./src/img/options_background.jpeg",
+    isAnimate: false,
+  },
+  {
+    key: "menu_bg_castle",
+    path: "./src/img/menu_bg_castle.png",
+    isAnimate: false,
+  },
+  {
+    key: "menu_bg_grad",
+    path: "./src/img/menu_bg_grad.png",
+    isAnimate: false,
+  },
+  {
+    key: "menu_bg_cloud_1",
+    path: "./src/img/menu_bg_cloud_1.png",
+    isAnimate: false,
+  },
+  {
+    key: "menu_bg_cloud_2",
+    path: "./src/img/menu_bg_cloud_2.png",
+    isAnimate: false,
+  },
+  {
+    key: "menu_bg_cloud_3",
+    path: "./src/img/menu_bg_cloud_3.png",
+    isAnimate: false,
+  },
+  {
+    key: "menu_bg_cloud_4",
+    path: "./src/img/menu_bg_cloud_4.png",
     isAnimate: false,
   },
   {

@@ -11,6 +11,9 @@ export const BASE_WIDTH = 2500;
 
 export const BASE_FPS = 30;
 
+export const LEFT_BORDER_FOR_CLOUD_IN_MENU = -1000;
+export const RIGHT_BORDER_FOR_CLOUD_IN_MENU = 2600;
+
 export const STATE_BUTTON = {
   NONE: "none",
   DOWN: "down",

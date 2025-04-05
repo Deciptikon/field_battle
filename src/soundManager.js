@@ -91,6 +91,21 @@ export class soundManager {
     }
   }
 
+  pauseAll() {
+    for (let name in this.sounds) {
+      this.pauseSound(name);
+    }
+  }
+
+  replayAll() {
+    for (let name in this.sounds) {
+      this.pauseSound(name);
+      if (this.sounds[name].audio.currentTime > 0) {
+        this.playSound(name);
+      }
+    }
+  }
+
   pauseSound(name) {
     if (this.sounds[name]) {
       this.sounds[name].audio.pause();

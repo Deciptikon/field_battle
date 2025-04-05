@@ -43,7 +43,9 @@ export class assetManager {
       loadImage(data.path)
         .then((img) => {
           console.log(`Изображение ${data.key} загружено.`);
-          this.obj[data.key] = img;
+          //this.obj[data.key] = img;
+          this.obj[data.key] = new Animation({});
+          this.obj[data.key].fromImage(img);
           if (callback !== null) callback();
         })
         .catch((error) => {
