@@ -3,6 +3,7 @@ import { baseScreen } from "./baseScreen.js";
 export class dailyScreen extends baseScreen {
   constructor(imageAssets, soundAssets, model, options, params, toScreen) {
     super(imageAssets, soundAssets, model, options, params, toScreen);
+    this.titleScreen = "Дневные активности";
   }
 
   init() {

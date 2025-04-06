@@ -9,13 +9,20 @@ import { IncrementDecrementControl } from "../../utils/incrementDecrementControl
 export class optionsScreen extends baseScreen {
   constructor(imageAssets, soundAssets, model, options, params, toScreen) {
     super(imageAssets, soundAssets, model, options, params, toScreen);
+    this.titleScreen = "Настройки";
+
+    const Y = 250; // положение по высоте
+    const W = 400; // ширина
+    const H = 200; // высота
+    const S = 200; // отступ
+    const P = (this.w - (3 * W + 2 * S)) / 2; // начальная точка по ширине
 
     this.listObjects.push(
       new IncrementDecrementControl(
-        200,
-        250,
-        400,
-        200,
+        P,
+        Y,
+        W,
+        H,
         "Музыка",
         () => {
           const type = TYPE_SOUND.MUSIC;
@@ -24,9 +31,6 @@ export class optionsScreen extends baseScreen {
             this.options.setVolumeSound(type, Math.floor(vol * 10 + 1) * 0.1);
             this.soundAssets.replayAll();
           }
-          console.log(
-            `Прибавляем громкость vol = ${this.options.getVolumeSound(type)}`
-          );
         },
         () => {
           const type = TYPE_SOUND.MUSIC;
@@ -35,12 +39,8 @@ export class optionsScreen extends baseScreen {
             this.options.setVolumeSound(type, Math.floor(vol * 10 - 1) * 0.1);
             this.soundAssets.replayAll();
           }
-          console.log(
-            `Убавляем громкость   vol = ${this.options.getVolumeSound(type)}`
-          );
         },
         function () {
-          console.log(`Обновляем лайбел`);
           const type = TYPE_SOUND.MUSIC;
           const val = options.getVolumeSound(type);
           this.text.text = `${Math.floor(val * 100)}%`;
@@ -50,10 +50,10 @@ export class optionsScreen extends baseScreen {
 
     this.listObjects.push(
       new IncrementDecrementControl(
-        700,
-        250,
-        400,
-        200,
+        P + W + S,
+        Y,
+        W,
+        H,
         "Эффекты",
         () => {
           const type = TYPE_SOUND.EFFECT;
@@ -62,9 +62,6 @@ export class optionsScreen extends baseScreen {
             this.options.setVolumeSound(type, Math.floor(vol * 10 + 1) * 0.1);
             this.soundAssets.replayAll();
           }
-          console.log(
-            `Прибавляем громкость vol = ${this.options.getVolumeSound(type)}`
-          );
         },
         () => {
           const type = TYPE_SOUND.EFFECT;
@@ -73,12 +70,8 @@ export class optionsScreen extends baseScreen {
             this.options.setVolumeSound(type, Math.floor(vol * 10 - 1) * 0.1);
             this.soundAssets.replayAll();
           }
-          console.log(
-            `Убавляем громкость   vol = ${this.options.getVolumeSound(type)}`
-          );
         },
         function () {
-          console.log(`Обновляем лайбел`);
           const type = TYPE_SOUND.EFFECT;
           const val = options.getVolumeSound(type);
           this.text.text = `${Math.floor(val * 100)}%`;
@@ -88,10 +81,10 @@ export class optionsScreen extends baseScreen {
 
     this.listObjects.push(
       new IncrementDecrementControl(
-        1200,
-        250,
-        400,
-        200,
+        P + 2 * (W + S),
+        Y,
+        W,
+        H,
         "Интерфейс",
         () => {
           const type = TYPE_SOUND.INTERFACE;
@@ -100,9 +93,6 @@ export class optionsScreen extends baseScreen {
             this.options.setVolumeSound(type, Math.floor(vol * 10 + 1) * 0.1);
             this.soundAssets.replayAll();
           }
-          console.log(
-            `Прибавляем громкость vol = ${this.options.getVolumeSound(type)}`
-          );
         },
         () => {
           const type = TYPE_SOUND.INTERFACE;
@@ -111,12 +101,8 @@ export class optionsScreen extends baseScreen {
             this.options.setVolumeSound(type, Math.floor(vol * 10 - 1) * 0.1);
             this.soundAssets.replayAll();
           }
-          console.log(
-            `Убавляем громкость   vol = ${this.options.getVolumeSound(type)}`
-          );
         },
         function () {
-          console.log(`Обновляем лайбел`);
           const type = TYPE_SOUND.INTERFACE;
           const val = options.getVolumeSound(type);
           this.text.text = `${Math.floor(val * 100)}%`;

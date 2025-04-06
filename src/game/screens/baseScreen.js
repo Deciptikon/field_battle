@@ -1,5 +1,6 @@
 import { isEmpty } from "../../utils/utils.js";
 import { Button } from "../../utils/button.js";
+import { Label } from "../../utils/label.js";
 
 export class baseScreen {
   constructor(imageAssets, soundAssets, model, options, params, toScreen) {
@@ -11,6 +12,8 @@ export class baseScreen {
     this.w = params.w;
     this.h = params.h;
     this.toScreen = toScreen;
+    this.titleScreen = null;
+    this.title = null;
 
     this.background = null;
     this.imageAssets = imageAssets;
@@ -51,6 +54,24 @@ export class baseScreen {
   init() {
     if (this.background === null)
       this.background = this.imageAssets.get("menu_bg_grad");
+    if (this.titleScreen !== null) {
+      this.title = new Label({
+        x: 0,
+        y: 0,
+        w: this.w,
+        h: 100,
+        text: {
+          fillStyle: `rgba(${255}, ${255}, ${255}, ${1.0})`,
+          font: "Arial",
+          fontSize: 50,
+          isItalic: false,
+          isBold: true,
+          text: this.titleScreen,
+          shiftY: -30,
+        },
+        colorBackground: `rgba(${0}, ${0}, ${0}, ${0.1})`,
+      });
+    }
     if (!isEmpty(this.listObjects)) {
       this.listObjects.forEach((obj) => {
         obj?.init();
@@ -83,6 +104,9 @@ export class baseScreen {
 
     if (this.background !== null) {
       this.background.draw(ctx, 0, 0, this.w, this.h);
+    }
+    if (this.titleScreen !== null) {
+      this.title.render(ctx);
     }
 
     if (!isEmpty(this.listObjects)) {
