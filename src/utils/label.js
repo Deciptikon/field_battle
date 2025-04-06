@@ -15,6 +15,10 @@ export class Label {
     //
   }
 
+  restate() {
+    //
+  }
+
   update(touch, stateApp) {
     if (this.callback !== null) this.callback();
   }

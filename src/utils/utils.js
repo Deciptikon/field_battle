@@ -7,6 +7,14 @@ export function drawRect(ctx, x, y, w, h, color) {
   ctx.restore();
 }
 
+export function drawQuad(ctx, x, y, w, h, color, lineWidth = 1) {
+  ctx.save();
+  ctx.strokeStyle = color;
+  ctx.lineWidth = lineWidth;
+  ctx.strokeRect(x, y, w, h);
+  ctx.restore();
+}
+
 export function isEmpty(list) {
   return list.length === 0 ? true : false;
 }

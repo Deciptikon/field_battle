@@ -19,9 +19,15 @@ export const W_BTT_IN_MENU = 350;
 export const H_BTT_IN_MENU = 100;
 
 export const STATE_BUTTON = {
-  NONE: "none",
-  DOWN: "down",
-  UP: "up",
+  NONE: "NONE",
+  DOWN: "DOWN",
+  UP: "UP",
+};
+
+export const STATE_CHECKBOX = {
+  NONE: "NONE",
+  PRESSED: "PRESSED",
+  CHECKED: "CHECKED",
 };
 
 export const STATE_APP = {

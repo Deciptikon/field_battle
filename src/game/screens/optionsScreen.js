@@ -5,6 +5,8 @@ import { TYPE_SOUND } from "../../utils/constants.js";
 import { baseScreen } from "./baseScreen.js";
 
 import { IncrementDecrementControl } from "../../utils/incrementDecrementControl.js";
+import { CheckBox } from "../../utils/checkBox.js";
+import { CheckBoxLabel } from "../../utils/checkBoxLabel.js";
 
 export class optionsScreen extends baseScreen {
   constructor(imageAssets, soundAssets, model, options, params, toScreen) {
@@ -106,6 +108,47 @@ export class optionsScreen extends baseScreen {
           const type = TYPE_SOUND.INTERFACE;
           const val = options.getVolumeSound(type);
           this.text.text = `${Math.floor(val * 100)}%`;
+        }
+      )
+    );
+
+    const Ycb = 550;
+    const Wcb = 700;
+    const Hcb = 100;
+    const Scb = 200;
+    const Pcb = (this.w - (2 * Wcb + Scb)) / 2;
+
+    this.listObjects.push(
+      new CheckBoxLabel(
+        Pcb,
+        Ycb,
+        Wcb,
+        Hcb,
+        "Отображение HP",
+        function () {
+          console.log(`CheckBox: ${this.isChecked}`);
+          options.setDamageDraw_HP(this.isChecked);
+        },
+        function () {
+          this.isChecked = options.getDamageDraw_HP();
+          console.log(`CheckBox Restate: ${this.isChecked}`);
+        }
+      )
+    );
+    this.listObjects.push(
+      new CheckBoxLabel(
+        Pcb + Wcb + Scb,
+        Ycb,
+        Wcb,
+        Hcb,
+        "Отображение урона",
+        function () {
+          console.log(`CheckBox: ${this.isChecked}`);
+          options.setDamageDraw_Damage(this.isChecked);
+        },
+        function () {
+          this.isChecked = options.getDamageDraw_Damage();
+          console.log(`CheckBox Restate: ${this.isChecked}`);
         }
       )
     );

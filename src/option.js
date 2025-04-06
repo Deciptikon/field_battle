@@ -49,6 +49,28 @@ export class Options {
     return p / q;
   }
 
+  getDamageDraw_Damage() {
+    const key = "DAMAGE_DRAW";
+    return this[key].DAMAGE;
+  }
+
+  setDamageDraw_Damage(val) {
+    const key = "DAMAGE_DRAW";
+    this[key].DAMAGE = val ? true : false;
+    this.needSave[key] = true;
+  }
+
+  getDamageDraw_HP() {
+    const key = "DAMAGE_DRAW";
+    return this[key].HP;
+  }
+
+  setDamageDraw_HP(val) {
+    const key = "DAMAGE_DRAW";
+    this[key].HP = val ? true : false;
+    this.needSave[key] = true;
+  }
+
   updateLoginStats() {
     const key = "LOGIN_STATS";
     if (this[key].LAST_TIME === null) {

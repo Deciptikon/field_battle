@@ -185,6 +185,81 @@ export class mainScreen {
         }
       )
     );
+
+    this.listObjects.push(
+      new ButtonColored(
+        function () {
+          toScreen("adsScreen");
+        },
+        {
+          x: params.w - 220,
+          y: 180,
+          w: 200,
+          h: 200,
+          rgba: {
+            [STATE_BUTTON.NONE]: {
+              rgb: RGB(0, 200, 200),
+              a: 1.0,
+            },
+            [STATE_BUTTON.DOWN]: {
+              rgb: RGB(0, 100, 100),
+              a: 1.0,
+            },
+            [STATE_BUTTON.UP]: {
+              rgb: RGB(250, 250, 250),
+              a: 1.0,
+            },
+          },
+          text: {
+            fillStyle: "#FFFFFF",
+            font: "Arial",
+            fontSize: 50,
+            isItalic: false,
+            isBold: true,
+            text: "$",
+            shiftY: -25,
+          },
+        }
+      )
+    );
+
+    this.listObjects.push(
+      new ButtonColored(
+        function () {
+          console.log(`Достижения ...`);
+          toScreen("dailyScreen");
+        },
+        {
+          x: params.w - 220,
+          y: 400,
+          w: 200,
+          h: 200,
+          rgba: {
+            [STATE_BUTTON.NONE]: {
+              rgb: RGB(200, 0, 200),
+              a: 1.0,
+            },
+            [STATE_BUTTON.DOWN]: {
+              rgb: RGB(100, 0, 100),
+              a: 1.0,
+            },
+            [STATE_BUTTON.UP]: {
+              rgb: RGB(250, 250, 250),
+              a: 1.0,
+            },
+          },
+          text: {
+            fillStyle: "#FFFFFF",
+            font: "Arial",
+            fontSize: 50,
+            isItalic: false,
+            isBold: true,
+            text: "events",
+            shiftY: -25,
+          },
+        }
+      )
+    );
   }
 
   init() {
@@ -306,7 +381,7 @@ export class mainScreen {
     this.scene.addObject(
       new ObjectScene(
         {
-          x: this.w * 0.5,
+          x: this.w * 0.43,
           y: this.h * 0.1,
           w: this.w * 0.75,
           h: this.h * 0.8,
