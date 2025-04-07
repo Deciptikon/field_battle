@@ -3,6 +3,7 @@ import { Button } from "../../utils/button.js";
 import { ButtonColored } from "../../utils/buttonColored.js";
 import { ButtonColoredAnimation } from "../../utils/buttonColoredAnimation.js";
 import {
+  COLORS,
   STATE_BUTTON,
   LEFT_BORDER_FOR_CLOUD_IN_MENU,
   RIGHT_BORDER_FOR_CLOUD_IN_MENU,
@@ -13,8 +14,8 @@ import {
 import { SceneAnimation } from "../../utils/scene_animation/scene_animation.js";
 import { ObjectScene } from "../../utils/scene_animation/objectScene.js";
 
-import { setData, getData, getKeys } from "../../saveLoadManager.js";
-import { ResourceLabel } from "../../utils/resourceLabel.js";
+import { ResourceLabel } from "../../utils/resource_bar/resourceLabel.js";
+import { ResourceBar } from "../../utils/resource_bar/resourceBar.js";
 
 export class mainScreen {
   constructor(imageAssets, soundAssets, model, options, params, toScreen) {
@@ -36,6 +37,13 @@ export class mainScreen {
     this.soundPlay = false;
 
     this.scene = new SceneAnimation({});
+    this.resBar = new ResourceBar(
+      0,
+      0,
+      this.w,
+      100,
+      COLORS.BACKGROUND_INTERFACE_ELEMENTS
+    );
 
     this.listObjects = [];
     this.listObjects.push(
@@ -430,15 +438,33 @@ export class mainScreen {
     );
 
     const options = this.options;
-    this.listObjects.push(
+    const rb_p = 800;
+    const rb_w = 300;
+    const rb_h = 100;
+    const rb_s = 100;
+    this.resBar.addObject(
+      "icon_money",
       new ResourceLabel(
-        800,
+        rb_p,
         0,
-        300,
-        100,
+        rb_w,
+        rb_h,
         this.imageAssets.get("icon_money"),
         function () {
           this.text.text = `${options.getGameResource_Money()}`;
+        }
+      )
+    );
+    this.resBar.addObject(
+      "icon_crystall",
+      new ResourceLabel(
+        rb_p + rb_w + rb_s,
+        0,
+        rb_w,
+        rb_h,
+        this.imageAssets.get("icon_crystall"),
+        function () {
+          this.text.text = `${options.getGameResource_Crystall()}`;
         }
       )
     );
@@ -448,6 +474,8 @@ export class mainScreen {
         obj?.init();
       });
     }
+
+    this.resBar.init();
 
     this.options.updateLoginStats();
     this.options.resaveOptions();
@@ -460,6 +488,7 @@ export class mainScreen {
         obj?.init();
       });
     }
+    this.resBar.restate();
     this.options.resaveOptions();
   }
 
@@ -477,6 +506,8 @@ export class mainScreen {
         obj?.update(touch);
       });
     }
+
+    this.resBar.update(touch, stateApp);
   }
 
   render(ctx) {
@@ -506,6 +537,8 @@ export class mainScreen {
         obj?.render(ctx);
       });
     }
+
+    this.resBar.render(ctx);
 
     //this.imageAssets.get("test_anima")?.draw(ctx, 0, 0);
 

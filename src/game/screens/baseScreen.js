@@ -1,6 +1,7 @@
 import { isEmpty } from "../../utils/utils.js";
 import { Button } from "../../utils/button.js";
 import { Label } from "../../utils/label.js";
+import { COLORS } from "../../utils/constants.js";
 
 export class baseScreen {
   constructor(imageAssets, soundAssets, model, options, params, toScreen) {
@@ -35,7 +36,7 @@ export class baseScreen {
           w: 180,
           h: 180,
           text: {
-            fillStyle: "#FFFFFF",
+            fillStyle: COLORS.TEXT_INTERFACE_ELEMENTS,
             font: "Arial",
             fontSize: 100,
             isItalic: false,
@@ -61,7 +62,7 @@ export class baseScreen {
         w: this.w,
         h: 100,
         text: {
-          fillStyle: `rgba(${255}, ${255}, ${255}, ${1.0})`,
+          fillStyle: COLORS.TEXT_INTERFACE_ELEMENTS,
           font: "Arial",
           fontSize: 50,
           isItalic: false,
@@ -69,7 +70,7 @@ export class baseScreen {
           text: this.titleScreen,
           shiftY: -30,
         },
-        colorBackground: `rgba(${0}, ${0}, ${0}, ${0.1})`,
+        colorBackground: COLORS.BACKGROUND_INTERFACE_ELEMENTS,
       });
     }
     if (!isEmpty(this.listObjects)) {

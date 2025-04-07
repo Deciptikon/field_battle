@@ -1,5 +1,5 @@
-import { COLORS, TYPE_ALLIGN_TEXT } from "./constants.js";
-import { Label } from "./label.js";
+import { COLORS, TYPE_ALLIGN_TEXT } from "../constants.js";
+import { Label } from "../label.js";
 
 export class ResourceLabel {
   constructor(x, y, w, h, image, callbackUpdate = null) {

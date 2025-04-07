@@ -82,6 +82,17 @@ export class Options {
     this.needSave[key] = true;
   }
 
+  getGameResource_Crystall() {
+    const key = "GAME_RESOURCE";
+    return this[key].CRYSTALLS;
+  }
+
+  setGameResource_Crystall(num) {
+    const key = "GAME_RESOURCE";
+    this[key].CRYSTALLS = num < 0 ? 0 : Math.ceil(num);
+    this.needSave[key] = true;
+  }
+
   updateLoginStats() {
     const key = "LOGIN_STATS";
     if (this[key].LAST_TIME === null) {
@@ -127,7 +138,7 @@ export class Options {
       .catch((err) => {
         console.error(err);
       });
-    this.loaded[key] = true; ///////////////////////////////////////////////////////
+    //this.loaded[key] = true; ///////////////////////////////////////////////////////
   }
 
   save(key) {

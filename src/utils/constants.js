@@ -4,7 +4,7 @@ export const COLORS = {
   RED: "rgb(255, 50, 50)",
   GREEN: "rgb(50, 255, 50)",
   BLUE: "rgb(50, 50, 255)",
-  BACKGROUND_INTERFACE_ELEMENTS: `rgba(${0}, ${0}, ${0}, ${0.1})`,
+  BACKGROUND_INTERFACE_ELEMENTS: `rgba(${0}, ${0}, ${0}, ${0.2})`,
   TEXT_INTERFACE_ELEMENTS: `rgba(${255}, ${255}, ${255}, ${1.0})`,
 };
 
