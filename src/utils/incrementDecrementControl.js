@@ -1,5 +1,6 @@
 import { Label } from "./label.js";
 import { Button } from "./button.js";
+import { COLORS } from "./constants.js";
 
 export class IncrementDecrementControl {
   constructor(x, y, w, h, title, callbackPlus, callbackMinus, callbackCounter) {
@@ -9,7 +10,7 @@ export class IncrementDecrementControl {
       w: w,
       h: h / 2,
       text: {
-        fillStyle: `rgba(${255}, ${255}, ${255}, ${1.0})`,
+        fillStyle: COLORS.TEXT_INTERFACE_ELEMENTS,
         font: "Arial",
         fontSize: 50,
         isItalic: false,
@@ -17,7 +18,7 @@ export class IncrementDecrementControl {
         text: title,
         shiftY: -30,
       },
-      colorBackground: `rgba(${0}, ${0}, ${0}, ${0.1})`,
+      colorBackground: COLORS.BACKGROUND_INTERFACE_ELEMENTS,
     });
 
     this.buttonMinus = new Button(callbackMinus, {
@@ -26,7 +27,7 @@ export class IncrementDecrementControl {
       w: h / 2,
       h: h / 2,
       text: {
-        fillStyle: "#FFFFFF",
+        fillStyle: COLORS.TEXT_INTERFACE_ELEMENTS,
         font: "Arial",
         fontSize: 50,
         isItalic: false,
@@ -43,7 +44,7 @@ export class IncrementDecrementControl {
         w: w - h,
         h: h / 2,
         text: {
-          fillStyle: `rgba(${255}, ${255}, ${255}, ${1.0})`,
+          fillStyle: COLORS.TEXT_INTERFACE_ELEMENTS,
           font: "Arial",
           fontSize: 50,
           isItalic: false,
@@ -51,7 +52,7 @@ export class IncrementDecrementControl {
           text: "0",
           shiftY: -30,
         },
-        colorBackground: `rgba(${0}, ${0}, ${0}, ${0.1})`,
+        colorBackground: COLORS.BACKGROUND_INTERFACE_ELEMENTS,
       },
       callbackCounter
     );
@@ -62,7 +63,7 @@ export class IncrementDecrementControl {
       w: h / 2,
       h: h / 2,
       text: {
-        fillStyle: "#FFFFFF",
+        fillStyle: COLORS.TEXT_INTERFACE_ELEMENTS,
         font: "Arial",
         fontSize: 50,
         isItalic: false,

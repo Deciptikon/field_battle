@@ -45,6 +45,14 @@ export class Animation {
     }
   }
 
+  init() {
+    //
+  }
+
+  restate() {
+    this.pos = 0;
+  }
+
   update(num = null) {
     if (!this.isAnimate) return;
 

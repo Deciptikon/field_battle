@@ -29,7 +29,7 @@ export class InputManager {
         if (this.leftDown) {
           this.active = true;
           this.leftDown = false;
-          console.log("Касание закончилось");
+          //console.log("Касание закончилось");
         }
       });
     } else {

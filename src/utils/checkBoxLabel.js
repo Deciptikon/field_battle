@@ -1,5 +1,6 @@
 import { CheckBox } from "./checkBox.js";
 import { Label } from "./label.js";
+import { COLORS } from "./constants.js";
 
 export class CheckBoxLabel {
   constructor(x, y, w, h, title, callbackChange, callbackRestate = null) {
@@ -15,7 +16,7 @@ export class CheckBoxLabel {
       w: w - h,
       h: h,
       text: {
-        fillStyle: `rgba(${255}, ${255}, ${255}, ${1.0})`,
+        fillStyle: COLORS.TEXT_INTERFACE_ELEMENTS,
         font: "Arial",
         fontSize: 50,
         isItalic: false,
@@ -23,7 +24,7 @@ export class CheckBoxLabel {
         text: title,
         shiftY: -30,
       },
-      colorBackground: `rgba(${0}, ${0}, ${0}, ${0.1})`,
+      colorBackground: COLORS.BACKGROUND_INTERFACE_ELEMENTS,
     });
   }
 

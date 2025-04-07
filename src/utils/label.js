@@ -1,4 +1,5 @@
 import { fontFromStruct } from "./utils.js";
+import { TYPE_ALLIGN_TEXT } from "./constants.js";
 
 export class Label {
   constructor(params, callback = null) {
@@ -9,6 +10,9 @@ export class Label {
     this.w = params.w;
     this.h = params.h;
     this.colorBackground = params?.colorBackground || null;
+    this.allign = params?.allign || null;
+
+    if (this.allign === null) this.allign = TYPE_ALLIGN_TEXT.MIDDLE;
   }
 
   init() {
@@ -36,11 +40,17 @@ export class Label {
       ctx.font = fontFromStruct(this.text);
 
       const tm = ctx.measureText(this.text.text);
-      //console.log(this.text.text);
-      //console.log(this.text?.shiftY);
+
+      let s = 0;
+      if (this.allign === TYPE_ALLIGN_TEXT.MIDDLE) {
+        s = (this.w - tm.width) / 2;
+      }
+      if (this.allign === TYPE_ALLIGN_TEXT.RIGHT) {
+        s = this.w - tm.width;
+      }
       ctx.fillText(
         this.text.text,
-        this.x + (this.w - tm.width) / 2,
+        this.x + s,
         this.y + (this.h - this.text.shiftY) / 2
       );
     }

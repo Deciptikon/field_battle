@@ -35,6 +35,11 @@ export const SOURCE_IMAGE = [
     isAnimate: false,
   },
   {
+    key: "icon_money",
+    path: "./src/img/icon_money.png",
+    isAnimate: false,
+  },
+  {
     key: "test_anima",
     path: "./src/img/seq_1.png",
     isAnimate: true,

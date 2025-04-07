@@ -4,6 +4,8 @@ export const COLORS = {
   RED: "rgb(255, 50, 50)",
   GREEN: "rgb(50, 255, 50)",
   BLUE: "rgb(50, 50, 255)",
+  BACKGROUND_INTERFACE_ELEMENTS: `rgba(${0}, ${0}, ${0}, ${0.1})`,
+  TEXT_INTERFACE_ELEMENTS: `rgba(${255}, ${255}, ${255}, ${1.0})`,
 };
 
 export const BASE_HEIGHT = 1000;
@@ -28,6 +30,12 @@ export const STATE_CHECKBOX = {
   NONE: "NONE",
   PRESSED: "PRESSED",
   CHECKED: "CHECKED",
+};
+
+export const TYPE_ALLIGN_TEXT = {
+  LEFT: "LEFT",
+  MIDDLE: "MIDDLE",
+  RIGHT: "RIGHT",
 };
 
 export const STATE_APP = {

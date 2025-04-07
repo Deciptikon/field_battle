@@ -20,6 +20,12 @@ export const OPTIONS = {
     LVL_BATTLE: 0, // текущий уровень боёв
   },
 
+  // статистика ресурсов
+  GAME_RESOURCE: {
+    MONEY: 80,
+    CRYSTALLS: 5,
+  },
+
   // настройки громкости звука
   VOLUME_SOUND: {
     [TYPE_SOUND.MUSIC]: 1.0, //       громкость музыки

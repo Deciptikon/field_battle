@@ -14,6 +14,7 @@ import { SceneAnimation } from "../../utils/scene_animation/scene_animation.js";
 import { ObjectScene } from "../../utils/scene_animation/objectScene.js";
 
 import { setData, getData, getKeys } from "../../saveLoadManager.js";
+import { ResourceLabel } from "../../utils/resourceLabel.js";
 
 export class mainScreen {
   constructor(imageAssets, soundAssets, model, options, params, toScreen) {
@@ -40,7 +41,8 @@ export class mainScreen {
     this.listObjects.push(
       new ButtonColored(
         function () {
-          console.log(`читаем все ключи ...`);
+          options.setGameResource_Money(options.getGameResource_Money() + 10);
+          console.log(`Money = ${options.getGameResource_Money()}`);
         },
         {
           x: X_CORD_BTT_IN_MENU,
@@ -423,6 +425,20 @@ export class mainScreen {
           this.x -= 0.2;
           if (this.x < LEFT_BORDER_FOR_CLOUD_IN_MENU)
             this.x = RIGHT_BORDER_FOR_CLOUD_IN_MENU;
+        }
+      )
+    );
+
+    const options = this.options;
+    this.listObjects.push(
+      new ResourceLabel(
+        800,
+        0,
+        300,
+        100,
+        this.imageAssets.get("icon_money"),
+        function () {
+          this.text.text = `${options.getGameResource_Money()}`;
         }
       )
     );
