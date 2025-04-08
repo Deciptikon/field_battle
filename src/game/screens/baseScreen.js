@@ -1,11 +1,9 @@
-import { isEmpty } from "../../utils/utils.js";
 import { Button } from "../../utils/button.js";
 import { Label } from "../../utils/label.js";
 import { COLORS } from "../../utils/constants.js";
 
 export class baseScreen {
-  constructor(imageAssets, soundAssets, model, options, params, toScreen) {
-    this.model = model;
+  constructor(imageAssets, soundAssets, options, params, toScreen) {
     this.options = options;
 
     this.x = params.x;
@@ -19,8 +17,6 @@ export class baseScreen {
     this.background = null;
     this.imageAssets = imageAssets;
     this.soundAssets = soundAssets;
-
-    this.soundPlay = false;
 
     this.listObjects = {};
     this.listButtons = {};
@@ -62,7 +58,7 @@ export class baseScreen {
     }
 
     this.addButton(
-      "bttStartGame",
+      "bttBackInMain",
       new Button(
         function () {
           console.log(`Back in MAIN`);

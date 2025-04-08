@@ -21,9 +21,8 @@ import { ResourceBar } from "../../utils/resource_bar/resourceBar.js";
 import { checkAds } from "../../adsManager.js";
 
 export class mainScreen {
-  constructor(imageAssets, soundAssets, model, options, params, toScreen) {
+  constructor(imageAssets, soundAssets, options, params, toScreen) {
     //
-    this.model = model;
     this.options = options;
 
     this.x = params.x;
@@ -69,8 +68,9 @@ export class mainScreen {
       new ButtonColored(
         function () {
           //this.soundAssets.playSound("");
-          options.setGameResource_Money(options.getGameResource_Money() + 10);
-          console.log(`Money = ${options.getGameResource_Money()}`);
+          //options.setGameResource_Money(options.getGameResource_Money() + 10);
+          //console.log(`Money = ${options.getGameResource_Money()}`);
+          toScreen("battleScreen");
         },
         {
           x: X_CORD_BTT_IN_MENU,

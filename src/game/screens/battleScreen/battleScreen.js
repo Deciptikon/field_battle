@@ -1,9 +1,8 @@
-import { baseScreen } from "./baseScreen.js";
+import { baseBattleScreen } from "./baseBattleScreen.js";
 
-export class dailyScreen extends baseScreen {
+export class battleScreen extends baseBattleScreen {
   constructor(imageAssets, soundAssets, options, params, toScreen) {
     super(imageAssets, soundAssets, options, params, toScreen);
-    this.titleScreen = "Дневные активности";
   }
 
   init() {

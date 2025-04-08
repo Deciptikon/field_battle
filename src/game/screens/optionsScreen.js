@@ -9,8 +9,8 @@ import { CheckBox } from "../../utils/checkBox.js";
 import { CheckBoxLabel } from "../../utils/checkBoxLabel.js";
 
 export class optionsScreen extends baseScreen {
-  constructor(imageAssets, soundAssets, model, options, params, toScreen) {
-    super(imageAssets, soundAssets, model, options, params, toScreen);
+  constructor(imageAssets, soundAssets, options, params, toScreen) {
+    super(imageAssets, soundAssets, options, params, toScreen);
     this.titleScreen = "Настройки";
   }
 

@@ -7,14 +7,12 @@ export class loadScreen {
   constructor(
     imageAssets,
     soundAssets,
-    model,
     options,
     params,
     toScreen,
     callback = null
   ) {
     //
-    this.model = model;
     this.options = options;
 
     this.x = params.x;

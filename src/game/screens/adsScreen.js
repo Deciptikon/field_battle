@@ -5,8 +5,8 @@ import { STATE_BUTTON } from "../../utils/constants.js";
 import { createTextForButton, RGB } from "../../utils/utils.js";
 
 export class adsScreen extends baseScreen {
-  constructor(imageAssets, soundAssets, model, options, params, toScreen) {
-    super(imageAssets, soundAssets, model, options, params, toScreen);
+  constructor(imageAssets, soundAssets, options, params, toScreen) {
+    super(imageAssets, soundAssets, options, params, toScreen);
     this.titleScreen = "Бонусы";
   }
 

@@ -52,6 +52,8 @@ export const STATE_APP = {
 export const STATE_BATTLE = {
   PLAY: "PLAY",
   PAUSE: "PAUSE",
+  WELL_END: "WELL_END",
+  BAD_END: "BAD_END",
 };
 
 export const TYPE_SOUND = {

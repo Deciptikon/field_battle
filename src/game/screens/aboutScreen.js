@@ -1,8 +1,8 @@
 import { baseScreen } from "./baseScreen.js";
 
 export class aboutScreen extends baseScreen {
-  constructor(imageAssets, soundAssets, model, options, params, toScreen) {
-    super(imageAssets, soundAssets, model, options, params, toScreen);
+  constructor(imageAssets, soundAssets, options, params, toScreen) {
+    super(imageAssets, soundAssets, options, params, toScreen);
     this.titleScreen = "Информация";
   }
 

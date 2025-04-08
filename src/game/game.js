@@ -3,7 +3,7 @@ import { Options } from "../option.js";
 import { checkAds, showAds } from "../adsManager.js";
 import { assetManager } from "../assetManager.js";
 import { soundManager } from "../soundManager.js";
-import { Data } from "./data/data.js";
+
 import { STATE_APP } from "../utils/constants.js";
 
 import { loadScreen } from "./screens/loadScreen.js";
@@ -14,6 +14,7 @@ import { aboutScreen } from "./screens/aboutScreen.js";
 import { upgradeScreen } from "./screens/upgradeScreen.js";
 import { dailyScreen } from "./screens/dailyScreen.js";
 import { adsScreen } from "./screens/adsScreen.js";
+import { battleScreen } from "./screens/battleScreen/battleScreen.js";
 
 export class Game {
   constructor(ctx, bridge, options) {
@@ -56,7 +57,6 @@ export class Game {
 
     this.imageAssets = new assetManager(this.options); // набор изображений
     this.soundAssets = new soundManager(this.options); // набор звуков
-    this.data = new Data(bridge); // структура данных
 
     this.screens = {};
     this.currentScreen = null;
@@ -82,7 +82,6 @@ export class Game {
       this.screens[key] = new screenClass(
         this.imageAssets,
         this.soundAssets,
-        this.data,
         this.options,
         params,
         toScreen
@@ -92,7 +91,6 @@ export class Game {
     this.screens.loadScreen = new loadScreen(
       this.imageAssets,
       this.soundAssets,
-      this.data,
       this.options,
       params,
       toScreen,
@@ -113,6 +111,7 @@ export class Game {
     addScreen("upgradeScreen", upgradeScreen);
     addScreen("dailyScreen", dailyScreen);
     addScreen("adsScreen", adsScreen);
+    addScreen("battleScreen", battleScreen);
 
     this.currentScreen = this.screens.loadScreen;
 
@@ -206,6 +205,9 @@ export class Game {
 
   setStateApp(stateApp) {
     this.soundAssets.setStateApp(stateApp);
+    //if (stateApp === STATE_APP.PLAY) {
+    this.currentScreen.update(this.touch, stateApp);
+    //}
   }
 
   update(touch, deltaTime, stateApp) {
