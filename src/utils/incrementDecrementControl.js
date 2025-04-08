@@ -74,12 +74,19 @@ export class IncrementDecrementControl {
     });
   }
 
+  setSound(sound) {
+    this.buttonMinus.setSound(sound);
+    this.buttonPlus.setSound(sound);
+  }
+
   init() {
-    //
+    this.buttonMinus.init();
+    this.buttonPlus.init();
   }
 
   restate() {
-    //
+    this.buttonMinus.restate();
+    this.buttonPlus.restate();
   }
 
   update(touch) {

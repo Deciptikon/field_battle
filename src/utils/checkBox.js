@@ -20,6 +20,8 @@ export class CheckBox {
 
     if (options?.a) this.a = options.a;
 
+    this.sound = options?.sound ? options?.sound : null;
+
     this.colorBorder = { r: 255, g: 255, b: 255 };
 
     this.isVisible = true;
@@ -29,6 +31,17 @@ export class CheckBox {
 
     this.isPressed = false;
     this.isChecked = false;
+  }
+
+  setSound(sound) {
+    this.sound = sound ? sound : null;
+  }
+
+  click() {
+    if (this.sound !== null) {
+      this.sound();
+    }
+    if (this.callbackChange !== null) this.callbackChange();
   }
 
   updateState() {
@@ -68,7 +81,7 @@ export class CheckBox {
         this.isChecked = !this.isChecked;
         this.updateState();
         // callback
-        if (this.callbackChange !== null) this.callbackChange();
+        this.click();
       }
     }
   }

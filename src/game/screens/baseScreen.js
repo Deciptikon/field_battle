@@ -22,8 +22,47 @@ export class baseScreen {
 
     this.soundPlay = false;
 
-    this.listObjects = [];
-    this.listObjects.push(
+    this.listObjects = {};
+    this.listButtons = {};
+
+    //toScreen("mainScreen");
+  }
+
+  addObject(key, obj) {
+    this.listObjects[key] = obj;
+  }
+
+  addButton(key, obj) {
+    this.listButtons[key] = obj;
+  }
+
+  // первоначальная инициализация
+  init() {
+    const toScreen = this.toScreen;
+
+    if (this.background === null)
+      this.background = this.imageAssets.get("menu_bg_grad");
+    if (this.titleScreen !== null) {
+      this.title = new Label({
+        x: 0,
+        y: 0,
+        w: this.w,
+        h: 100,
+        text: {
+          fillStyle: COLORS.TEXT_INTERFACE_ELEMENTS,
+          font: "Arial",
+          fontSize: 50,
+          isItalic: false,
+          isBold: true,
+          text: this.titleScreen,
+          shiftY: -30,
+        },
+        colorBackground: COLORS.BACKGROUND_INTERFACE_ELEMENTS,
+      });
+    }
+
+    this.addButton(
+      "bttStartGame",
       new Button(
         function () {
           console.log(`Back in MAIN`);
@@ -48,54 +87,37 @@ export class baseScreen {
       )
     );
 
-    //toScreen("mainScreen");
-  }
+    const snd = () => {
+      this.soundAssets.playSound("btt_click");
+    };
 
-  // первоначальная инициализация
-  init() {
-    if (this.background === null)
-      this.background = this.imageAssets.get("menu_bg_grad");
-    if (this.titleScreen !== null) {
-      this.title = new Label({
-        x: 0,
-        y: 0,
-        w: this.w,
-        h: 100,
-        text: {
-          fillStyle: COLORS.TEXT_INTERFACE_ELEMENTS,
-          font: "Arial",
-          fontSize: 50,
-          isItalic: false,
-          isBold: true,
-          text: this.titleScreen,
-          shiftY: -30,
-        },
-        colorBackground: COLORS.BACKGROUND_INTERFACE_ELEMENTS,
-      });
+    for (let key in this.listObjects) {
+      this.listObjects[key]?.init();
     }
-    if (!isEmpty(this.listObjects)) {
-      this.listObjects.forEach((obj) => {
-        obj?.init();
-      });
+    for (let key in this.listButtons) {
+      this.listButtons[key]?.setSound(snd);
+      this.listButtons[key]?.init();
     }
   }
 
   // сброс параметров при каждой загрузке экрана
   restate() {
     console.log("baseScreen.restate()");
-    if (!isEmpty(this.listObjects)) {
-      this.listObjects.forEach((obj) => {
-        obj?.init();
-      });
+    for (let key in this.listObjects) {
+      this.listObjects[key]?.init(); //restate()
+    }
+    for (let key in this.listButtons) {
+      this.listButtons[key]?.init(); //restate()
     }
   }
 
   // обновление на каждом кадре
   update(touch, stateApp) {
-    if (!isEmpty(this.listObjects)) {
-      this.listObjects.forEach((obj) => {
-        obj?.update(touch);
-      });
+    for (let key in this.listObjects) {
+      this.listObjects[key]?.update(touch);
+    }
+    for (let key in this.listButtons) {
+      this.listButtons[key]?.update(touch);
     }
   }
 
@@ -110,10 +132,11 @@ export class baseScreen {
       this.title.render(ctx);
     }
 
-    if (!isEmpty(this.listObjects)) {
-      this.listObjects.forEach((obj) => {
-        obj?.render(ctx);
-      });
+    for (let key in this.listObjects) {
+      this.listObjects[key]?.render(ctx);
+    }
+    for (let key in this.listButtons) {
+      this.listButtons[key]?.render(ctx);
     }
 
     ctx.restore();

@@ -23,6 +23,8 @@ export class Button {
     } else {
       this.text = null;
     }
+
+    this.sound = options?.sound ? options?.sound : null;
     //console.log(this.text);
 
     this.isVisible = true;
@@ -32,7 +34,23 @@ export class Button {
     this.count = 0;
   }
 
+  setSound(sound) {
+    this.sound = sound ? sound : null;
+  }
+
+  click() {
+    if (this.sound !== null) {
+      this.sound();
+    }
+    this.callback();
+  }
+
   init() {
+    this.state = STATE_BUTTON.NONE;
+    this.count = 0;
+  }
+
+  restate() {
     this.state = STATE_BUTTON.NONE;
     this.count = 0;
   }
@@ -57,7 +75,7 @@ export class Button {
         this.state = STATE_BUTTON.UP;
         this.count = 0;
         // callback
-        this.callback();
+        //this.click();
       }
     }
 
@@ -101,6 +119,7 @@ export class Button {
         //this.count > anima_up.length
         this.state = STATE_BUTTON.NONE;
         this.count = 0;
+        this.click();
       }
     }
     ctx.restore();

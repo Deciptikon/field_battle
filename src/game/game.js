@@ -156,9 +156,9 @@ export class Game {
     //ctx.fillStyle = "green";
     //ctx.fillRect(0, 0, this.intWidth, this.intHeight);
 
-    ctx.fillStyle = "red";
-    ctx.font = "50px Arial";
-    ctx.fillText(`this.platform = ${this.platform}`, 60, 90);
+    //ctx.fillStyle = "red";
+    //ctx.font = "50px Arial";
+    //ctx.fillText(`this.platform = ${this.platform}`, 60, 90);
 
     ctx.restore();
   }

@@ -12,14 +12,17 @@ export class optionsScreen extends baseScreen {
   constructor(imageAssets, soundAssets, model, options, params, toScreen) {
     super(imageAssets, soundAssets, model, options, params, toScreen);
     this.titleScreen = "Настройки";
+  }
 
+  init() {
     const Y = 250; // положение по высоте
     const W = 400; // ширина
     const H = 200; // высота
     const S = 200; // отступ
     const P = (this.w - (3 * W + 2 * S)) / 2; // начальная точка по ширине
 
-    this.listObjects.push(
+    this.addButton(
+      "incrementMusic",
       new IncrementDecrementControl(
         P,
         Y,
@@ -50,7 +53,8 @@ export class optionsScreen extends baseScreen {
       )
     );
 
-    this.listObjects.push(
+    this.addButton(
+      "incrementEffect",
       new IncrementDecrementControl(
         P + W + S,
         Y,
@@ -81,7 +85,8 @@ export class optionsScreen extends baseScreen {
       )
     );
 
-    this.listObjects.push(
+    this.addButton(
+      "incrementInterface",
       new IncrementDecrementControl(
         P + 2 * (W + S),
         Y,
@@ -117,8 +122,10 @@ export class optionsScreen extends baseScreen {
     const Hcb = 100;
     const Scb = 200;
     const Pcb = (this.w - (2 * Wcb + Scb)) / 2;
+    const options = this.options;
 
-    this.listObjects.push(
+    this.addButton(
+      "checkboxHP",
       new CheckBoxLabel(
         Pcb,
         Ycb,
@@ -135,7 +142,9 @@ export class optionsScreen extends baseScreen {
         }
       )
     );
-    this.listObjects.push(
+
+    this.addButton(
+      "checkboxDamage",
       new CheckBoxLabel(
         Pcb + Wcb + Scb,
         Ycb,
@@ -152,9 +161,7 @@ export class optionsScreen extends baseScreen {
         }
       )
     );
-  }
 
-  init() {
     super.init();
   }
 

@@ -1,6 +1,7 @@
 import { OPTIONS } from "./utils/config.js";
 import { str2obj, obj2str, isToday, isYesterday } from "./utils/utils.js";
 import { getData, setData } from "./saveLoadManager.js";
+import { DEBAG } from "./utils/constants.js";
 
 export class Options {
   constructor(bridge) {
@@ -138,7 +139,7 @@ export class Options {
       .catch((err) => {
         console.error(err);
       });
-    //this.loaded[key] = true; ///////////////////////////////////////////////////////
+    if (DEBAG) this.loaded[key] = true; ///////////////////////////////////////////////////////
   }
 
   save(key) {

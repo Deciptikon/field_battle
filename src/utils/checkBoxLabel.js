@@ -28,6 +28,10 @@ export class CheckBoxLabel {
     });
   }
 
+  setSound(sound) {
+    this.checkBox.setSound(sound);
+  }
+
   init() {
     this.checkBox.init();
   }

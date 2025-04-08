@@ -85,7 +85,11 @@ export class soundManager {
 
       audio.volume = Math.min(1, Math.max(0, optVol * bVol));
       if (loop || this.sounds[name].loop) audio.loop = true;
-      audio.play();
+      try {
+        audio.play();
+      } catch {
+        console.error("Ошибка воспроизведения:", name);
+      }
     } else {
       console.error("Звук не найден:", name);
     }

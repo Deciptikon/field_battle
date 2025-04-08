@@ -29,6 +29,7 @@ export class mainScreen {
     this.h = params.h;
 
     this.bridge = params.bridge;
+    this.toScreen = toScreen;
 
     this.background = null;
     this.imageAssets = imageAssets;
@@ -45,10 +46,38 @@ export class mainScreen {
       COLORS.BACKGROUND_INTERFACE_ELEMENTS
     );
 
-    this.listObjects = [];
-    this.listObjects.push(
+    this.listObjects = {};
+    this.listButtons = {};
+  }
+
+  addObject(key, obj) {
+    this.listObjects[key] = obj;
+  }
+
+  addButton(key, obj) {
+    this.listButtons[key] = obj;
+  }
+
+  init() {
+    const toScreen = this.toScreen;
+
+    function createTextForButton(text) {
+      return {
+        fillStyle: "#FFFFFF",
+        font: "Arial",
+        fontSize: 50,
+        isItalic: false,
+        isBold: true,
+        text: text,
+        shiftY: -25,
+      };
+    }
+
+    this.addButton(
+      "bttStartGame",
       new ButtonColored(
         function () {
+          //this.soundAssets.playSound("");
           options.setGameResource_Money(options.getGameResource_Money() + 10);
           console.log(`Money = ${options.getGameResource_Money()}`);
         },
@@ -71,20 +100,13 @@ export class mainScreen {
               a: 1.0,
             },
           },
-          text: {
-            fillStyle: "#FFFFFF",
-            font: "Arial",
-            fontSize: 50,
-            isItalic: false,
-            isBold: true,
-            text: "Играть",
-            shiftY: -25,
-          },
+          text: createTextForButton("Играть"),
         }
       )
     );
 
-    this.listObjects.push(
+    this.addButton(
+      "bttUpgrade",
       new Button(
         function () {
           toScreen("upgradeScreen");
@@ -96,20 +118,13 @@ export class mainScreen {
           h: H_BTT_IN_MENU,
           rgb: RGB(50, 200, 50),
           //a: A(0.2, 0.1, 0.0),
-          text: {
-            fillStyle: "#FFFFFF",
-            font: "Arial",
-            fontSize: 50,
-            isItalic: false,
-            isBold: true,
-            text: "Развитие",
-            shiftY: -25,
-          },
+          text: createTextForButton("Развитие"),
         }
       )
     );
 
-    this.listObjects.push(
+    this.addButton(
+      "bttOptions",
       new Button(
         function () {
           console.log(`to options`);
@@ -122,22 +137,15 @@ export class mainScreen {
           h: H_BTT_IN_MENU,
           rgb: RGB(200, 0, 200),
           //a: A(0.2, 0.1, 0.0),
-          text: {
-            fillStyle: "#FFFFFF",
-            font: "Arial",
-            fontSize: 50,
-            isItalic: false,
-            isBold: true,
-            text: "Опции",
-            shiftY: -25,
-          },
+          text: createTextForButton("Опции"),
         }
       )
     );
-
-    this.listObjects.push(
-      new ButtonColoredAnimation(
+    this.addButton(
+      "bttAbout",
+      new ButtonColored(
         function () {
+          console.log(`about ...`);
           toScreen("aboutScreen");
         },
         {
@@ -145,20 +153,26 @@ export class mainScreen {
           y: 650,
           w: W_BTT_IN_MENU,
           h: H_BTT_IN_MENU,
-          text: {
-            fillStyle: "#FFFFFF",
-            font: "Arial",
-            fontSize: 50,
-            isItalic: false,
-            isBold: true,
-            text: "О игре",
-            shiftY: -25,
+          rgba: {
+            [STATE_BUTTON.NONE]: {
+              rgb: RGB(200, 200, 0),
+              a: 1.0,
+            },
+            [STATE_BUTTON.DOWN]: {
+              rgb: RGB(100, 100, 0),
+              a: 1.0,
+            },
+            [STATE_BUTTON.UP]: {
+              rgb: RGB(250, 250, 250),
+              a: 1.0,
+            },
           },
+          text: createTextForButton("О игре"),
         }
       )
     );
-
-    this.listObjects.push(
+    this.addButton(
+      "bttAchievements",
       new ButtonColored(
         function () {
           console.log(`Достижения ...`);
@@ -183,26 +197,18 @@ export class mainScreen {
               a: 1.0,
             },
           },
-          text: {
-            fillStyle: "#FFFFFF",
-            font: "Arial",
-            fontSize: 50,
-            isItalic: false,
-            isBold: true,
-            text: "Достижения",
-            shiftY: -25,
-          },
+          text: createTextForButton("Достижения"),
         }
       )
     );
-
-    this.listObjects.push(
+    this.addButton(
+      "bttAds",
       new ButtonColored(
         function () {
           toScreen("adsScreen");
         },
         {
-          x: params.w - 220,
+          x: this.w - 220,
           y: 180,
           w: 200,
           h: 200,
@@ -220,27 +226,19 @@ export class mainScreen {
               a: 1.0,
             },
           },
-          text: {
-            fillStyle: "#FFFFFF",
-            font: "Arial",
-            fontSize: 50,
-            isItalic: false,
-            isBold: true,
-            text: "$",
-            shiftY: -25,
-          },
+          text: createTextForButton("$"),
         }
       )
     );
-
-    this.listObjects.push(
+    this.addButton(
+      "bttDaily",
       new ButtonColored(
         function () {
-          console.log(`Достижения ...`);
+          console.log(`Дэйлики ...`);
           toScreen("dailyScreen");
         },
         {
-          x: params.w - 220,
+          x: this.w - 220,
           y: 400,
           w: 200,
           h: 200,
@@ -258,22 +256,11 @@ export class mainScreen {
               a: 1.0,
             },
           },
-          text: {
-            fillStyle: "#FFFFFF",
-            font: "Arial",
-            fontSize: 50,
-            isItalic: false,
-            isBold: true,
-            text: "events",
-            shiftY: -25,
-          },
+          text: createTextForButton("events"),
         }
       )
     );
-  }
 
-  init() {
-    //this.background = this.imageAssets.get("menu_background");
     this.scene.addObject(
       new ObjectScene(
         {
@@ -469,10 +456,22 @@ export class mainScreen {
       )
     );
 
-    if (!isEmpty(this.listObjects)) {
-      this.listObjects.forEach((obj) => {
-        obj?.init();
-      });
+    for (let key in this.listObjects) {
+      this.listObjects[key]?.init();
+    }
+
+    const snd = () => {
+      this.soundAssets.playSound("btt_click");
+    };
+
+    for (let key in this.listButtons) {
+      this.listButtons[key].sound = snd;
+      this.listButtons[key]?.init();
+    }
+
+    if (!this.soundPlay) {
+      this.soundAssets.playSound("main_theme");
+      this.soundPlay = true;
     }
 
     this.resBar.init();
@@ -483,11 +482,18 @@ export class mainScreen {
 
   // сброс параметров при каждой загрузке экрана
   restate() {
-    if (!isEmpty(this.listObjects)) {
-      this.listObjects.forEach((obj) => {
-        obj?.init();
-      });
+    for (let key in this.listObjects) {
+      this.listObjects[key]?.init();
     }
+    for (let key in this.listButtons) {
+      this.listButtons[key]?.init(); //restate()
+    }
+
+    if (!this.soundPlay) {
+      this.soundAssets.playSound("main_theme");
+      this.soundPlay = true;
+    }
+
     this.resBar.restate();
     this.options.resaveOptions();
   }
@@ -496,15 +502,11 @@ export class mainScreen {
     //this.imageAssets.get("test_anima")?.update();
     this.scene.update(touch, stateApp);
 
-    if (!this.soundPlay) {
-      this.soundAssets.playSound("main_theme");
-      this.soundPlay = true;
+    for (let key in this.listObjects) {
+      this.listObjects[key]?.update(touch);
     }
-
-    if (!isEmpty(this.listObjects)) {
-      this.listObjects.forEach((obj) => {
-        obj?.update(touch);
-      });
+    for (let key in this.listButtons) {
+      this.listButtons[key]?.update(touch);
     }
 
     this.resBar.update(touch, stateApp);
@@ -519,31 +521,13 @@ export class mainScreen {
 
     this.scene.draw(ctx);
 
-    /*const h_bg = this.background.height;
-    const w_bg = this.background.width;
-
-    const k = this.h / h_bg;
-
-    ctx.drawImage(
-      this.background,
-      (this.w - w_bg * k) / 2,
-      0,
-      w_bg * k,
-      h_bg * k
-    );*/
-
-    if (!isEmpty(this.listObjects)) {
-      this.listObjects.forEach((obj) => {
-        obj?.render(ctx);
-      });
+    for (let key in this.listObjects) {
+      this.listObjects[key]?.render(ctx);
     }
-
+    for (let key in this.listButtons) {
+      this.listButtons[key]?.render(ctx);
+    }
     this.resBar.render(ctx);
-
-    //this.imageAssets.get("test_anima")?.draw(ctx, 0, 0);
-
-    //const fr = this.imageAssets.get("test_anima").getCurrentFrame();
-    //ctx.drawImage(fr, 0, 0, fr.width, fr.height);
 
     ctx.restore();
   }

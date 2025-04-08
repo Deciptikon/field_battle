@@ -32,7 +32,9 @@ export class ButtonColored {
     } else {
       this.text = null;
     }
-    //console.log(this.text);
+
+    this.sound = options?.sound ? options?.sound : null;
+    console.log(this.sound);
 
     this.isVisible = true;
     this.isAction = true;
@@ -41,7 +43,23 @@ export class ButtonColored {
     this.count = 0;
   }
 
+  setSound(sound) {
+    this.sound = sound ? sound : null;
+  }
+
+  click() {
+    if (this.sound !== null) {
+      this.sound();
+    }
+    this.callback();
+  }
+
   init() {
+    this.state = STATE_BUTTON.NONE;
+    this.count = 0;
+  }
+
+  restate() {
     this.state = STATE_BUTTON.NONE;
     this.count = 0;
   }
@@ -66,7 +84,8 @@ export class ButtonColored {
         this.state = STATE_BUTTON.UP;
         this.count = 0;
         // callback
-        this.callback();
+
+        //this.click();
       }
     }
 
@@ -112,7 +131,7 @@ export class ButtonColored {
         this.state = STATE_BUTTON.NONE;
         this.count = 0;
         // callback
-        // this.callback();
+        this.click();
       }
     }
     ctx.restore();
