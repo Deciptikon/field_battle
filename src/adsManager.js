@@ -1,3 +1,5 @@
+import { RELEASE } from "./utils/constants.js";
+
 function checkLocalAds(vkBridge, callback) {
   vkBridge
     .send("VKWebAppCheckNativeAds", { ad_format: "reward" })
@@ -37,13 +39,19 @@ function showNativeAds(vkBridge, callback) {
 }
 
 export function checkAds(callback) {
-  //checkLocalAds(window.vkBridge, callback); // раскомментировать на релизе
-  console.log("код работает, проверяем рекламу");
-  callback(); // а это закомментировать
+  if (RELEASE) {
+    checkLocalAds(window.vkBridge, callback);
+  } else {
+    console.log("код работает, проверяем рекламу");
+    setTimeout(callback, 5000);
+  }
 }
 
 export function showAds(callback) {
-  //showNativeAds(window.vkBridge, callback); // раскомментировать на релизе
-  console.log("код работает, показываем рекламу");
-  callback(); // а это закомментировать
+  if (RELEASE) {
+    showNativeAds(window.vkBridge, callback);
+  } else {
+    console.log("код работает, показываем рекламу");
+    setTimeout(callback, 5000);
+  }
 }

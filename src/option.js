@@ -83,6 +83,14 @@ export class Options {
     this.needSave[key] = true;
   }
 
+  incrementGameResource_Money(inc) {
+    if (inc <= 0) return;
+
+    const key = "GAME_RESOURCE";
+    this[key].MONEY += Math.ceil(inc);
+    this.needSave[key] = true;
+  }
+
   getGameResource_Crystall() {
     const key = "GAME_RESOURCE";
     return this[key].CRYSTALLS;
@@ -92,6 +100,17 @@ export class Options {
     const key = "GAME_RESOURCE";
     this[key].CRYSTALLS = num < 0 ? 0 : Math.ceil(num);
     this.needSave[key] = true;
+  }
+
+  incrementAdsStats_Count() {
+    const key = "ADS_STATS";
+    this[key].COUNT++;
+    this.needSave[key] = true;
+  }
+
+  getAdsStats_MoneyForView() {
+    const key = "ADS_STATS";
+    return this[key].MONEY_FOR_VIEW;
   }
 
   updateLoginStats() {

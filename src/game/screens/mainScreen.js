@@ -1,7 +1,7 @@
-import { isEmpty, RGB, A } from "../../utils/utils.js";
+import { RGB, createTextForButton } from "../../utils/utils.js";
 import { Button } from "../../utils/button.js";
 import { ButtonColored } from "../../utils/buttonColored.js";
-import { ButtonColoredAnimation } from "../../utils/buttonColoredAnimation.js";
+
 import {
   COLORS,
   STATE_BUTTON,
@@ -11,11 +11,14 @@ import {
   W_BTT_IN_MENU,
   H_BTT_IN_MENU,
 } from "../../utils/constants.js";
+
 import { SceneAnimation } from "../../utils/scene_animation/scene_animation.js";
 import { ObjectScene } from "../../utils/scene_animation/objectScene.js";
 
 import { ResourceLabel } from "../../utils/resource_bar/resourceLabel.js";
 import { ResourceBar } from "../../utils/resource_bar/resourceBar.js";
+
+import { checkAds } from "../../adsManager.js";
 
 export class mainScreen {
   constructor(imageAssets, soundAssets, model, options, params, toScreen) {
@@ -60,18 +63,6 @@ export class mainScreen {
 
   init() {
     const toScreen = this.toScreen;
-
-    function createTextForButton(text) {
-      return {
-        fillStyle: "#FFFFFF",
-        font: "Arial",
-        fontSize: 50,
-        isItalic: false,
-        isBold: true,
-        text: text,
-        shiftY: -25,
-      };
-    }
 
     this.addButton(
       "bttStartGame",
@@ -478,6 +469,10 @@ export class mainScreen {
 
     this.options.updateLoginStats();
     this.options.resaveOptions();
+
+    checkAds(() => {
+      console.log("Реклама есть");
+    });
   }
 
   // сброс параметров при каждой загрузке экрана
@@ -496,6 +491,10 @@ export class mainScreen {
 
     this.resBar.restate();
     this.options.resaveOptions();
+
+    checkAds(() => {
+      console.log("Реклама есть");
+    });
   }
 
   update(touch, stateApp) {

@@ -124,3 +124,15 @@ export function cropImage(image, x, y, width, height) {
   croppedImage.src = canvas.toDataURL();
   return croppedImage;
 }
+
+export function createTextForButton(text) {
+  return {
+    fillStyle: "#FFFFFF",
+    font: "Arial",
+    fontSize: 50,
+    isItalic: false,
+    isBold: true,
+    text: text,
+    shiftY: -25,
+  };
+}
