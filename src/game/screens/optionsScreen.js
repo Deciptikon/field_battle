@@ -34,7 +34,7 @@ export class optionsScreen extends baseScreen {
           const vol = this.options.getVolumeSound(type);
           if (vol < 1) {
             this.options.setVolumeSound(type, Math.floor(vol * 10 + 1) * 0.1);
-            this.soundAssets.replayAll();
+            this.soundAssets.replayAll(type);
           }
         },
         () => {
@@ -42,7 +42,7 @@ export class optionsScreen extends baseScreen {
           const vol = this.options.getVolumeSound(type);
           if (vol > 0) {
             this.options.setVolumeSound(type, Math.floor(vol * 10 - 1) * 0.1);
-            this.soundAssets.replayAll();
+            this.soundAssets.replayAll(type);
           }
         },
         function () {
@@ -66,7 +66,7 @@ export class optionsScreen extends baseScreen {
           const vol = this.options.getVolumeSound(type);
           if (vol < 1) {
             this.options.setVolumeSound(type, Math.floor(vol * 10 + 1) * 0.1);
-            this.soundAssets.replayAll();
+            this.soundAssets.replayAll(type);
           }
         },
         () => {
@@ -74,7 +74,7 @@ export class optionsScreen extends baseScreen {
           const vol = this.options.getVolumeSound(type);
           if (vol > 0) {
             this.options.setVolumeSound(type, Math.floor(vol * 10 - 1) * 0.1);
-            this.soundAssets.replayAll();
+            this.soundAssets.replayAll(type);
           }
         },
         function () {
@@ -98,7 +98,7 @@ export class optionsScreen extends baseScreen {
           const vol = this.options.getVolumeSound(type);
           if (vol < 1) {
             this.options.setVolumeSound(type, Math.floor(vol * 10 + 1) * 0.1);
-            this.soundAssets.replayAll();
+            //this.soundAssets.replayAll(type);
           }
         },
         () => {
@@ -106,7 +106,7 @@ export class optionsScreen extends baseScreen {
           const vol = this.options.getVolumeSound(type);
           if (vol > 0) {
             this.options.setVolumeSound(type, Math.floor(vol * 10 - 1) * 0.1);
-            this.soundAssets.replayAll();
+            //this.soundAssets.replayAll(type);
           }
         },
         function () {

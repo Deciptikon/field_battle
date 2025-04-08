@@ -101,11 +101,22 @@ export class soundManager {
     }
   }
 
-  replayAll() {
-    for (let name in this.sounds) {
-      this.pauseSound(name);
-      if (this.sounds[name].audio.currentTime > 0) {
-        this.playSound(name);
+  replayAll(type = null) {
+    if (type === null) {
+      for (let name in this.sounds) {
+        this.pauseSound(name);
+        if (this.sounds[name].audio.currentTime > 0) {
+          this.playSound(name);
+        }
+      }
+    } else {
+      for (let name in this.sounds) {
+        if (this.sounds[name].type === type) {
+          this.pauseSound(name);
+          if (this.sounds[name].audio.currentTime > 0) {
+            this.playSound(name);
+          }
+        }
       }
     }
   }
