@@ -484,9 +484,12 @@ export class mainScreen {
       this.listButtons[key]?.init(); //restate()
     }
 
-    if (!this.soundPlay) {
+    if (this.soundAssets.isPlaying("battle_theme")) {
+      this.soundAssets.stopSound("battle_theme");
+    }
+
+    if (!this.soundAssets.isPlaying("main_theme")) {
       this.soundAssets.playSound("main_theme");
-      this.soundPlay = true;
     }
 
     this.resBar.restate();

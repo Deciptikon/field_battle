@@ -1,7 +1,7 @@
 export const SOURCE_IMAGE = [
   {
-    key: "options_background",
-    path: "./src/img/options_background.jpeg",
+    key: "battle_bg_summer_1",
+    path: "./src/img/battle_bg_summer_1.png",
     isAnimate: false,
   },
   {

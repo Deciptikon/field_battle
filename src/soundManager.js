@@ -36,6 +36,7 @@ export class soundManager {
           type: type,
           baseVolume: baseVolume,
           loop: loop,
+          playing: false,
         };
         resolve(`Звук "${name}" успешно загружен.`);
       });
@@ -66,6 +67,7 @@ export class soundManager {
       for (let name in this.sounds) {
         if (this.sounds[name].audio.currentTime > 0) {
           this.sounds[name].audio.play();
+          this.sounds[name].playing = true;
         }
       }
     }
@@ -87,6 +89,7 @@ export class soundManager {
       if (loop || this.sounds[name].loop) audio.loop = true;
       try {
         audio.play();
+        this.sounds[name].playing = true;
       } catch {
         console.error("Ошибка воспроизведения:", name);
       }
@@ -124,6 +127,7 @@ export class soundManager {
   pauseSound(name) {
     if (this.sounds[name]) {
       this.sounds[name].audio.pause();
+      this.sounds[name].playing = false;
     }
   }
 
@@ -132,6 +136,16 @@ export class soundManager {
     if (this.sounds[name]) {
       this.sounds[name].audio.pause();
       this.sounds[name].audio.currentTime = 0;
+      this.sounds[name].playing = false;
+    }
+  }
+
+  // играет ли данная мелодия (справдливо для loop=true)
+  isPlaying(name) {
+    if (this.sounds[name]) {
+      return this.sounds[name].playing;
+    } else {
+      return null;
     }
   }
 }

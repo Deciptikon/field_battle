@@ -16,14 +16,15 @@ export class battleDefender {
 
     this.listObjects = {};
     this.listButtons = {};
+  }
 
-    this.stateBattle = STATE_BATTLE.PLAY;
-
-    //toScreen("mainScreen");
+  addButton(key, obj) {
+    this.listButtons[key] = obj;
   }
 
   init() {
-    //
+    if (this.background === null)
+      this.background = this.imageAssets.get("battle_bg_summer_1");
   }
 
   restate() {
@@ -35,6 +36,12 @@ export class battleDefender {
   }
 
   render(ctx) {
-    //
+    ctx.save();
+
+    if (this.background !== null) {
+      this.background.draw(ctx, 0, 0, this.w, this.h);
+    }
+
+    ctx.restore();
   }
 }
